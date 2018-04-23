@@ -1,5 +1,5 @@
-#pragma once
-#include <d3d9.h>
+#ifndef DIRECTGRAPHICS_H
+#define DIRECTGRAPHICS_H
 #include <d3dx9.h>
 #include <vector>
 #include <stdio.h>
@@ -58,3 +58,5 @@ private:
 	std::vector<LPDIRECT3DTEXTURE9> m_pTexture;
 	std::vector<char*> m_FileName;
 };
+
+#endif 
