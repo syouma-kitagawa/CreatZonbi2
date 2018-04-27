@@ -12,6 +12,7 @@ void DirectGraphics::CreateInstance(HWND hWnd)
 //2Dグラフィックス生成
 DirectGraphics::DirectGraphics(HWND hWnd)
 {
+	m_FileName.resize(0);
 	// DirectXオブジェクト生成
 	if (FAILED(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION))) {
 		MessageBox(0, "DirectXオブジェクトの生成に失敗しました", NULL, MB_OK);

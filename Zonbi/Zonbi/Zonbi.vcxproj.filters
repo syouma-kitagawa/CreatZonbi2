@@ -19,6 +19,27 @@
     <Filter Include="ソース ファイル\Player">
       <UniqueIdentifier>{4f0502af-c698-410d-8fca-89057d8ecfe7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{00e6f1c7-938f-482f-89e5-414edd231e7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base">
+      <UniqueIdentifier>{2c6b2eaa-eab9-499f-bbd3-542d973531a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Event">
+      <UniqueIdentifier>{2311419d-81f9-432d-b560-0bf635847ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor">
+      <UniqueIdentifier>{6422ddd3-cd68-4074-932b-8aee4f491406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Zonbi">
+      <UniqueIdentifier>{0ccbffee-0b74-49f4-8d8a-2de84efeb957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Human">
+      <UniqueIdentifier>{42ceb606-b0f5-42d4-a9ab-bf04bb804f5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Collision">
+      <UniqueIdentifier>{440fac2d-f77c-4316-bf0f-f36a2f9287d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectGraphics.h">
@@ -32,6 +53,39 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ソース ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>ソース ファイル\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Zonbi.h">
+      <Filter>ソース ファイル\Charctor\Zonbi</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectSound.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectBase.h">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaObject.h">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Human.h">
+      <Filter>ソース ファイル\Charctor\Human</Filter>
+    </ClInclude>
+    <ClInclude Include="ZonbiManager.h">
+      <Filter>ソース ファイル\Charctor\Zonbi</Filter>
+    </ClInclude>
+    <ClInclude Include="HumanManager.h">
+      <Filter>ソース ファイル\Charctor\Human</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>ソース ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>ソース ファイル\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +103,33 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>ソース ファイル\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Zonbi.cpp">
+      <Filter>ソース ファイル\Charctor\Zonbi</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectSound.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Human.cpp">
+      <Filter>ソース ファイル\Charctor\Human</Filter>
+    </ClCompile>
+    <ClCompile Include="ZonbiManager.cpp">
+      <Filter>ソース ファイル\Charctor\Zonbi</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>ソース ファイル\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="HumanManager.cpp">
+      <Filter>ソース ファイル\Charctor\Human</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

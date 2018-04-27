@@ -3,10 +3,12 @@
 
 #include <windows.h>
 
-class Player {
+class Player{
 public:
-	Player() {};
+	Player();
 	~Player() {};
+	void Update();
+	void MouseCursor();
 private:
 	POINT m_MousePos;
 };

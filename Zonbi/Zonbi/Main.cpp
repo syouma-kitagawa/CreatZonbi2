@@ -1,13 +1,12 @@
 #include <windows.h>
 #include <mmsystem.h>
 
-#include "DirectGraphics.h"
-#include "DirectInput.h"
+#include"DirectGraphics.h"
+#include"DirectInput.h"
+#include"Event.h"
+#include"Game.h"
 
-#define DISPLAY_WIDTH 870
-#define DISPLAY_HEIGHT 730
-
-#define TITLE 	TEXT("ONIGOKKO")
+#define TITLE 	TEXT("ZONBI")
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 /**
 *メッセージ処理
@@ -61,8 +60,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	);
 
 	if (!hWnd) return 0;
+
 	DirectGraphics::CreateInstance(hWnd);
 	DirectInput::CrateInstance(hWnd, hInstance);
+	Event::CreateInstance(hWnd);
+	Game game;
+
 	DWORD SyncOld = timeGetTime();	//	システム時間を取得
 	DWORD SyncNow;
 
@@ -81,8 +84,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			SyncNow = timeGetTime();
 			if (SyncNow - SyncOld >= 1000 / 60) //	1秒間に60回この中に入るはず
 			{
+				game.RunGame();
 				SyncOld = SyncNow;
-
 			}
 		}
 	}
