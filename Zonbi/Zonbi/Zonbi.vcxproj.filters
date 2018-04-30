@@ -31,14 +31,14 @@
     <Filter Include="ソース ファイル\Charctor">
       <UniqueIdentifier>{6422ddd3-cd68-4074-932b-8aee4f491406}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Charctor\Zonbi">
-      <UniqueIdentifier>{0ccbffee-0b74-49f4-8d8a-2de84efeb957}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Charctor\Human">
       <UniqueIdentifier>{42ceb606-b0f5-42d4-a9ab-bf04bb804f5d}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Collision">
       <UniqueIdentifier>{440fac2d-f77c-4316-bf0f-f36a2f9287d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Zombie">
+      <UniqueIdentifier>{0ccbffee-0b74-49f4-8d8a-2de84efeb957}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +60,6 @@
     <ClInclude Include="Event.h">
       <Filter>ソース ファイル\Event</Filter>
     </ClInclude>
-    <ClInclude Include="Zonbi.h">
-      <Filter>ソース ファイル\Charctor\Zonbi</Filter>
-    </ClInclude>
     <ClInclude Include="DirectSound.h">
       <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
@@ -75,9 +72,6 @@
     <ClInclude Include="Human.h">
       <Filter>ソース ファイル\Charctor\Human</Filter>
     </ClInclude>
-    <ClInclude Include="ZonbiManager.h">
-      <Filter>ソース ファイル\Charctor\Zonbi</Filter>
-    </ClInclude>
     <ClInclude Include="HumanManager.h">
       <Filter>ソース ファイル\Charctor\Human</Filter>
     </ClInclude>
@@ -86,6 +80,12 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>ソース ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>ソース ファイル\Charctor\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="ZombieManager.h">
+      <Filter>ソース ファイル\Charctor\Zombie</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,17 +110,11 @@
     <ClCompile Include="Event.cpp">
       <Filter>ソース ファイル\Event</Filter>
     </ClCompile>
-    <ClCompile Include="Zonbi.cpp">
-      <Filter>ソース ファイル\Charctor\Zonbi</Filter>
-    </ClCompile>
     <ClCompile Include="DirectSound.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
     <ClCompile Include="Human.cpp">
       <Filter>ソース ファイル\Charctor\Human</Filter>
-    </ClCompile>
-    <ClCompile Include="ZonbiManager.cpp">
-      <Filter>ソース ファイル\Charctor\Zonbi</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>ソース ファイル\Collision</Filter>
@@ -130,6 +124,12 @@
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>ソース ファイル\Charctor\Zombie</Filter>
+    </ClCompile>
+    <ClCompile Include="ZombieManager.cpp">
+      <Filter>ソース ファイル\Charctor\Zombie</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

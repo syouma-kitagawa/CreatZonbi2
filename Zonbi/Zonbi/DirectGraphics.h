@@ -1,7 +1,7 @@
 #ifndef DIRECTGRAPHICS_H
 #define DIRECTGRAPHICS_H
 #include <d3dx9.h>
-#include <vector>
+#include <map>
 #include <stdio.h>
 
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
@@ -23,14 +23,14 @@ public:
 	//描画開始関数
 	void StartRender();
 	//シーンに画像をセットする関数
-	void Render(int* textureid, CUSTOMVERTEX vertex[]);
+	void Render(char* filepath, CUSTOMVERTEX vertex[]);
 	//描画終了関数
 	void EndRender();
 	//2D画像読み込み関数
 	//第一引数ファイルパス
 	//第二引数画像を置く場所
-	void InitGraphics(char* filepath, int* texture);
-	void InitGraphicsPermeation(char* filepath, int* texture);
+	void InitGraphics(char* filepath);
+	void InitGraphicsPermeation(char* filepath);
 	//画像を上に方向転換
 	//引数上に向けたい画像のCUSTOMVERTEX
 	void Direction_Up(CUSTOMVERTEX Tmp[]);
@@ -55,8 +55,7 @@ private:
 	static DirectGraphics* pInstance;
 	LPDIRECT3D9			m_pDirect3D = NULL;		// DirectXオブジェクトのポインタ
 	LPDIRECT3DDEVICE9	m_pDirect3DDevice = NULL;	// DirectXデバイスのポインタ
-	std::vector<LPDIRECT3DTEXTURE9> m_pTexture;
-	std::vector<char*> m_FileName;
+	std::map<std::string, LPDIRECT3DTEXTURE9> m_Texture;
 };
 
 #endif 

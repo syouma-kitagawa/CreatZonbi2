@@ -5,18 +5,18 @@
 
 #include"Human.h"
 
-class ZonbiManager;
+class ZombieManager;
 
 class HumanManager
 {
 public:
-	HumanManager(ZonbiManager* manager);
+	HumanManager(ZombieManager* manager);
 	~HumanManager();
 	void Draw();
 	void Update();
 private:
 	std::vector<Human*> m_pHuman;
-	ZonbiManager* m_pZonbiManager;
+	ZombieManager* m_pZombieManager;
 };
 
 #endif

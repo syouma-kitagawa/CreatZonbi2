@@ -5,15 +5,15 @@
 Game::Game()
 {
 	CollisionManager::GetcollisionManager()->CreateCollisionManager();
-	m_ZonbiManager = new ZonbiManager();
-	m_HumanManager = new HumanManager(m_ZonbiManager);
+	m_ZombieManager = new ZombieManager();
+	m_HumanManager = new HumanManager(m_ZombieManager);
 	m_Player = new Player();
 }
 
 
 Game::~Game()
 {
-	delete m_ZonbiManager;
+	delete m_ZombieManager;
 	delete m_HumanManager;
 	delete m_Player;
 }
@@ -21,7 +21,7 @@ Game::~Game()
 void Game::Update()
 {
 	m_Player->Update();
-	m_ZonbiManager->Update();
+	m_ZombieManager->Update();
 	m_HumanManager->Update();
 	CollisionManager::GetcollisionManager()->Update();
 }
@@ -29,7 +29,7 @@ void Game::Update()
 void Game::Draw() 
 {
 	DirectGraphics::GetpInstance()->StartRender();
-	m_ZonbiManager->Draw();
+	m_ZombieManager->Draw();
 	m_HumanManager->Draw();
 	DirectGraphics::GetpInstance()->EndRender();
 }

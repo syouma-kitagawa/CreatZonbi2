@@ -12,7 +12,6 @@ void DirectGraphics::CreateInstance(HWND hWnd)
 //2Dグラフィックス生成
 DirectGraphics::DirectGraphics(HWND hWnd)
 {
-	m_FileName.resize(0);
 	// DirectXオブジェクト生成
 	if (FAILED(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION))) {
 		MessageBox(0, "DirectXオブジェクトの生成に失敗しました", NULL, MB_OK);
@@ -87,10 +86,10 @@ void DirectGraphics::StartRender()
 	m_pDirect3DDevice->BeginScene();
 }
 //シーンに画像をセットする関数
-void DirectGraphics::Render(int* textureid, CUSTOMVERTEX vertex[])
+void DirectGraphics::Render(char* filepath, CUSTOMVERTEX vertex[])
 {
 	// テクスチャをステージに割り当てる
-	m_pDirect3DDevice->SetTexture(0, m_pTexture[*textureid]);
+	m_pDirect3DDevice->SetTexture(0, m_Texture[filepath]);
 	// 描画
 	m_pDirect3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertex, sizeof(CUSTOMVERTEX));
 }
@@ -103,31 +102,40 @@ void DirectGraphics::EndRender()
 	m_pDirect3DDevice->Present(NULL, NULL, NULL, NULL);
 }
 //画像読み込み関数
-void DirectGraphics::InitGraphics(char* filepath, int *texture)
+void DirectGraphics::InitGraphics(char* filepath)
 {
+	bool theSame = false;
+
 	//もしおなじ画像ファイルがあったら読み込みをしない
-	auto result = std::find(m_FileName.begin(), m_FileName.end(), filepath);
-	if (result == m_FileName.end()) {
+	for (auto ite = m_Texture.begin(); ite != m_Texture.end(); ++ite) {
+		if ((*ite).first == filepath) {
+			theSame = true;
+			break;
+		}
+	}
+	if (theSame == false) {
 		LPDIRECT3DTEXTURE9 tmp = NULL;
 		//画像の読み込み
 		D3DXCreateTextureFromFile(
 			m_pDirect3DDevice,
 			filepath,
 			&tmp);
-		m_FileName.push_back(filepath);
-		*texture = m_pTexture.size();
-		m_pTexture.push_back(tmp);
-	}
-	else {
-		*texture = NULL;
+		m_Texture.insert(std::make_pair(filepath, tmp));
 	}
 }
 //画像透過読み込み関数
-void DirectGraphics::InitGraphicsPermeation(char*filepath, int *texture)
+void DirectGraphics::InitGraphicsPermeation(char*filepath)
 {
-	//もし同じ画像ファイルがあったら読み込みをしない
-	auto result = std::find(m_FileName.begin(), m_FileName.end(), filepath);
-	if (result == m_FileName.end()) {
+	bool theSame = false;
+
+	//もしおなじ画像ファイルがあったら読み込みをしない
+	for (auto ite = m_Texture.begin(); ite != m_Texture.end(); ++ite) {
+		if ((*ite).first == filepath) {
+			theSame = true;
+			break;
+		}
+	}
+	if (theSame == false) {
 		LPDIRECT3DTEXTURE9 tmp = NULL;
 		D3DXCreateTextureFromFileEx(
 			m_pDirect3DDevice,
@@ -144,14 +152,8 @@ void DirectGraphics::InitGraphicsPermeation(char*filepath, int *texture)
 			NULL,
 			NULL,
 			&tmp);
-		m_FileName.push_back(filepath);
-		*texture = m_pTexture.size();
-		m_pTexture.push_back(tmp);
+		m_Texture.insert(std::make_pair(filepath, tmp));
 	}
-	else {
-		*texture = NULL;
-	}
-
 }
 void DirectGraphics::Direction_Up(CUSTOMVERTEX Tmp[])
 {

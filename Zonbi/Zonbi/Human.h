@@ -4,8 +4,8 @@
 #include"CharaObject.h"
 #include"CollisionManager.h"
 
-#define HUMAN_W 108
-#define HUMAN_H 54
+#define HUMAN_W 54
+#define HUMAN_H 108
 
 class Human : public CharaObject
 {

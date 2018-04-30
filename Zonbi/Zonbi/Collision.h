@@ -8,7 +8,7 @@ class Collision
 public:
 	enum CollisionId {
 		HUMAN = 0,
-		ZONBI = 1
+		ZOMBIE = 1
 	};
 
 	Collision()

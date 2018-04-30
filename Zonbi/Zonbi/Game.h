@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include"ZonbiManager.h"
+#include"ZombieManager.h"
 #include"HumanManager.h"
 #include"Player.h"
 
@@ -14,7 +14,7 @@ public:
 	void Update();
 	void RunGame();
 private:
-	ZonbiManager* m_ZonbiManager;
+	ZombieManager* m_ZombieManager;
 	HumanManager* m_HumanManager;
 	Player* m_Player;
 };

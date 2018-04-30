@@ -1,12 +1,14 @@
 #include <algorithm>
 
 #include"HumanManager.h"
-#include"ZonbiManager.h"
+#include"ZombieManager.h"
 
 
-HumanManager::HumanManager(ZonbiManager* manager) : m_pZonbiManager(manager)
+HumanManager::HumanManager(ZombieManager* manager) : m_pZombieManager(manager)
 {
 	m_pHuman.push_back(new Human(D3DXVECTOR2(200.f, 200.f)));
+	m_pHuman.push_back(new Human(D3DXVECTOR2(300.f, 200.f)));
+	m_pHuman.push_back(new Human(D3DXVECTOR2(400.f, 200.f)));
 }
 
 
@@ -24,7 +26,7 @@ void HumanManager::Update()
 		if ((*ite)->IsDeth()){
 			//IsDeth‚ªtrue‚ÌHuman‚ðÁ‚µ‚ÄZonbi‚É’Ç‰Á
 			{
-				m_pZonbiManager->ZonbiAdd(m_pHuman[humanCount]->Getpos());
+				m_pZombieManager->ZombieAdd(m_pHuman[humanCount]->Getpos());
 			}
 		}
 		humanCount++;

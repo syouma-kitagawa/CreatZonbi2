@@ -9,7 +9,7 @@ Human::Human(D3DXVECTOR2 pos): m_Pos(pos),m_IsDeath(false)
 	m_Collision->SetSize(D3DXVECTOR2(HUMAN_W * 2 - HUMAN_W, HUMAN_H * 2 - HUMAN_H));
 	m_Collision->SetCollisionId(Collision::HUMAN);
 	CollisionManager::GetcollisionManager()->AddCollision(m_Collision);
-	DirectGraphics::GetpInstance()->InitGraphics("Texture/normal.png", &m_HumanTexture);
+	DirectGraphics::GetpInstance()->InitGraphics("Texture/normal.png");
 }
 
 
@@ -33,12 +33,12 @@ void Human::Draw()
 		HumanDraw[i].x += m_Pos.x;
 		HumanDraw[i].y += m_Pos.y;
 	}
-	DirectGraphics::GetpInstance()->Render(&m_HumanTexture, HumanDraw);
+	DirectGraphics::GetpInstance()->Render("Texture/normal.png", HumanDraw);
 }
 
 void Human::Update()
 {
-	if (m_Collision->GetOtherCollisionId() == (Collision::ZONBI)) {
+	if (m_Collision->GetOtherCollisionId() == (Collision::ZOMBIE)) {
 		m_IsDeath = true;
 	}
 	m_Collision->SetPosition(m_Pos);
