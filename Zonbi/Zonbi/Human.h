@@ -15,14 +15,12 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	int* GetHumanTexture() { return &m_HumanTexture; }
 	D3DXVECTOR2 Getpos() { return m_Pos; }
 
 	bool IsDeth() { return m_IsDeath; }
 private:
 	Collision* m_Collision;
 	D3DXVECTOR2 m_Pos;
-	int m_HumanTexture;
 	// 
 	bool m_IsDeath;
 };

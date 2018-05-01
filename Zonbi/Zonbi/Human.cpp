@@ -22,10 +22,10 @@ void Human::Draw()
 {
 	CUSTOMVERTEX HumanDraw[4];
 	static CUSTOMVERTEX  HumanVertex[4]{
-		{ -HUMAN_W, -HUMAN_H, 1.0f, 1.0f, 0xFFFFFFFF, 0.f,  0.f },
-		{  HUMAN_W, -HUMAN_H, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 0.f },
-		{  HUMAN_W,  HUMAN_H, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
-		{ -HUMAN_W,  HUMAN_H, 1.0f, 1.0f, 0xFFFFFFFF, 0.f,  1.0f }
+		{ -HUMAN_W / 2, - HUMAN_H / 2, 1.0f, 1.0f, 0xFFFFFFFF, 0.f,  0.f },
+		{  HUMAN_W / 2, - HUMAN_H / 2, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 0.f },
+		{  HUMAN_W / 2,   HUMAN_H / 2, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
+		{ -HUMAN_W / 2,   HUMAN_H / 2, 1.0f, 1.0f, 0xFFFFFFFF, 0.f,  1.0f }
 	};
 	//à íuÇ∆í∏ì_èÓïÒÇë„ì¸
 	for (int i = 0; i < 4; i++) {

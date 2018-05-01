@@ -87,6 +87,9 @@
     <ClInclude Include="ZombieManager.h">
       <Filter>ソース ファイル\Charctor\Zombie</Filter>
     </ClInclude>
+    <ClInclude Include="HumanParameter.h">
+      <Filter>ソース ファイル\Charctor\Human</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectGraphics.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="ZombieManager.cpp">
       <Filter>ソース ファイル\Charctor\Zombie</Filter>
+    </ClCompile>
+    <ClCompile Include="HumanParameter.cpp">
+      <Filter>ソース ファイル\Charctor\Human</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

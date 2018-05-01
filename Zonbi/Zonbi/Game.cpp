@@ -1,5 +1,6 @@
 #include"Game.h"
 #include"DirectGraphics.h"
+#include"DirectInput.h"
 
 
 Game::Game()
@@ -20,6 +21,7 @@ Game::~Game()
 
 void Game::Update()
 {
+	DirectInput::GetInstance().UpdateMouse();
 	m_Player->Update();
 	m_ZombieManager->Update();
 	m_HumanManager->Update();
