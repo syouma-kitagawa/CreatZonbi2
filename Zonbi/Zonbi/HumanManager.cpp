@@ -2,13 +2,20 @@
 
 #include"HumanManager.h"
 #include"ZombieManager.h"
+#include"HumanParameter.h"
 
 
 HumanManager::HumanManager(ZombieManager* manager) : m_pZombieManager(manager)
 {
-	m_pHuman.push_back(new Human(D3DXVECTOR2(200.f, 200.f)));
-	m_pHuman.push_back(new Human(D3DXVECTOR2(300.f, 200.f)));
-	m_pHuman.push_back(new Human(D3DXVECTOR2(400.f, 200.f)));
+	//int humanNum = HumanParameter::GetInstance().GetHumanNum();
+	//m_pHuman.resize(humanNum);
+	//for (int i = 0; i < humanNum; i++) {
+	//	HumanParameter param = HumanParameter::GetInstance();
+	//	D3DXVECTOR2 vec = param.GetHumanParam(i)->pos;
+	//	//m_pHuman[i]->Setpos(&(HumanParameter::GetInstance().GetHumanParam(i)->pos));
+	//	m_pHuman[i]->Setpos(&(vec));
+	//}
+	
 }
 
 
@@ -26,7 +33,7 @@ void HumanManager::Update()
 		if ((*ite)->IsDeth()){
 			//IsDeth‚ªtrue‚ÌHuman‚ðÁ‚µ‚ÄZonbi‚É’Ç‰Á
 			{
-				m_pZombieManager->ZombieAdd(m_pHuman[humanCount]->Getpos());
+				m_pZombieManager->ZombieAdd(*(m_pHuman[humanCount]->Getpos()));
 			}
 		}
 		humanCount++;

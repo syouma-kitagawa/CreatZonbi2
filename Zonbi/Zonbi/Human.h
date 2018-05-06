@@ -15,7 +15,11 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	D3DXVECTOR2 Getpos() { return m_Pos; }
+	D3DXVECTOR2* Getpos() { return &m_Pos; }
+	void Setpos(D3DXVECTOR2* pos)
+	{
+		m_Pos = *pos;
+	}
 
 	bool IsDeth() { return m_IsDeath; }
 private:

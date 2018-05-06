@@ -21,7 +21,14 @@ public:
 		return *m_pInstance;
 	}
 
+	~HumanParameter();
+
+	int GetHumanNum() { return m_HumanNum; }
+	HumanData* GetHumanParam(int number) { return &m_pHumanPram[number]; }
+
 	void LoadHuman();
+private:
+
 private:
 	static HumanParameter* m_pInstance;
 
@@ -29,7 +36,6 @@ private:
 	HumanData* m_pHumanPram;
 
 	HumanParameter();
-	~HumanParameter();
 };
 
 #endif

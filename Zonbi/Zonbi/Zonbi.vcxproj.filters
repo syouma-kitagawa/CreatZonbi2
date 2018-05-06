@@ -40,6 +40,9 @@
     <Filter Include="ソース ファイル\Charctor\Zombie">
       <UniqueIdentifier>{0ccbffee-0b74-49f4-8d8a-2de84efeb957}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{9bad8335-9b4b-4829-92c1-b1bd3470930e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectGraphics.h">
@@ -90,6 +93,15 @@
     <ClInclude Include="HumanParameter.h">
       <Filter>ソース ファイル\Charctor\Human</Filter>
     </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFactory.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectGraphics.cpp">
@@ -136,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="HumanParameter.cpp">
       <Filter>ソース ファイル\Charctor\Human</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFactory.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
