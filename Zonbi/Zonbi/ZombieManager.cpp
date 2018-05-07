@@ -1,9 +1,13 @@
-#include "ZombieManager.h"
-
+#include"ZombieManager.h"
+#include"ZombieParameter.h"
 ZombieManager::ZombieManager()
 {
-	m_pZombie.push_back(new Zombie(D3DXVECTOR2(1000.f, 100.f)));
+	ZombieParameter param = ZombieParameter::GetInstance();
+	D3DXVECTOR2 vec = param.GetInstance().GetZombieParam()->pos;
+	float speed = param.GetInstance().GetZombieParam()->speed;
+	m_pZombie.push_back(new Zombie(vec, speed));
 }
+
 
 
 ZombieManager::~ZombieManager()
@@ -30,5 +34,5 @@ void ZombieManager::Draw()
 
 void ZombieManager::ZombieAdd(D3DXVECTOR2 pos)
 {
-	m_pZombie.push_back(new Zombie(pos));
+	m_pZombie.push_back(new Zombie(pos,1.0f));
 }

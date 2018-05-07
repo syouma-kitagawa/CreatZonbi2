@@ -1,6 +1,7 @@
+#include "HumanParameter.h"
+
 #include<string>
 
-#include "HumanParameter.h"
 
 HumanParameter* HumanParameter::m_pInstance = nullptr;
 

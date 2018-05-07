@@ -114,6 +114,9 @@
     <ClInclude Include="SceneBase.h">
       <Filter>ソース ファイル\Scene\SceneManager</Filter>
     </ClInclude>
+    <ClInclude Include="ZombieParameter.h">
+      <Filter>ソース ファイル\Charctor\Zombie</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectGraphics.cpp">
@@ -172,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="TitleBackgraund.cpp">
       <Filter>ソース ファイル\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="ZombieParameter.cpp">
+      <Filter>ソース ファイル\Charctor\Zombie</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
 #include"Event.h"
 
 
-Zombie::Zombie(D3DXVECTOR2 pos) : m_Pos(pos)
+Zombie::Zombie(D3DXVECTOR2 pos,float speed) : m_Pos(pos), m_Speed(speed)
 {
 	m_Collision = new Collision();
 	m_Collision->SetPosition(m_Pos);
@@ -47,8 +47,8 @@ void Zombie::Update()
 	if (m_MoveZombie == true) {
 		radian = atan2(m_NextPos.y - m_Pos.y, m_NextPos.x - m_Pos.x);
 
-		m_Pos.x += cos(radian) * ZOMBIE_SPEED;
-		m_Pos.y += sin(radian) * ZOMBIE_SPEED;
+		m_Pos.x += cos(radian) * m_Speed;
+		m_Pos.y += sin(radian) * m_Speed;
 		if (m_Pos.x < m_NextPos.x + 10.f
 			&&m_Pos.x > m_NextPos.x - 10.f
 			&&m_Pos.y < m_NextPos.y + 10.f

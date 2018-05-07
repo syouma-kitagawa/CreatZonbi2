@@ -3,10 +3,9 @@
 
 #include <vector>
 
-#include"Human.h"
+#include<d3dx9.h>
 
-class HumanParameter
-{
+class HumanParameter{
 public:
 	struct HumanData {
 		D3DXVECTOR2 pos;
