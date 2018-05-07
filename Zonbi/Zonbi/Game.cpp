@@ -19,13 +19,15 @@ Game::~Game()
 	delete m_Player;
 }
 
-void Game::Update()
+SceneBase::SCENE_ID Game::Update()
 {
+	SCENE_ID retSceneId = SCENE_ID::MAIN;
 	DirectInput::GetInstance().UpdateMouse();
 	m_Player->Update();
 	m_ZombieManager->Update();
 	m_HumanManager->Update();
 	CollisionManager::GetcollisionManager()->Update();
+	return retSceneId;
 }
 
 void Game::Draw() 
@@ -34,10 +36,4 @@ void Game::Draw()
 	m_ZombieManager->Draw();
 	m_HumanManager->Draw();
 	DirectGraphics::GetpInstance()->EndRender();
-}
-
-void Game::RunGame() 
-{
-	Update();
-	Draw();
 }

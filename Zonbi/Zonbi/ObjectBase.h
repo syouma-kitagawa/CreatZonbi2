@@ -5,11 +5,9 @@
 
 class ObjectBase {
 public:
-	CharObjectBase() {};
-	virtual ~CharObjectBase() {};
+	ObjectBase() {};
+	virtual ~ObjectBase() {};
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
-protected:
-	D3DXVECTOR2 m_Pos;
-}
+};
 #endif

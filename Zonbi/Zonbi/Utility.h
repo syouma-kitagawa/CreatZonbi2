@@ -4,11 +4,6 @@
 #include<d3dx9.h>
 
 namespace Utility {
-	struct CUSTOMVERTEX {
-		FLOAT	x, y, z, rhw;
-		DWORD	color;
-		FLOAT	tu, tv;
-	};
 
 	enum struct BUTTON_STATE {
 		OFF,	//!< 前フレームから離されている状態
@@ -74,32 +69,5 @@ namespace Utility {
 		BUTTON_STATE LeftMouse;		//!< マウスの左クリックの状態
 		BUTTON_STATE RightMouse;	//!< マウスの右クリックの状態
 	};
-
-	struct PICTURE_INFO {
-		LPDIRECT3DTEXTURE9 texture;
-		int width;
-		int height;
-	};
-
-	bool JudgeCollisionCircle(const D3DXVECTOR2& pos1, float r1, const D3DXVECTOR2& pos2, float r2);
-
-	bool JudgeCollisionSquare(const D3DXVECTOR2& pos1, float width1, float height1, const D3DXVECTOR2& pos2, float width2, float height2);
-
-	float CalculateDistance(float x1, float y1, float x2, float y2);
-
-	float CalculateDeg(float x1, float y1, float x2, float y2);
-
-	double CalculateDegree(float x1, float y1, float x2, float y2);
-	void OutputDebug_Number(float outputNum, HWND hWnd);
-	void OutputDebug_Number(float outputNum);
-
-	D3DXVECTOR3* Tilt(D3DXVECTOR3* vector, float deg);
-
-	//min<= random <= max
-	int Random(int min, int max);
-
-	float AtanDeg(const D3DXVECTOR2& vec);
-
-	char TransformChar(int val);
 }
 #endif

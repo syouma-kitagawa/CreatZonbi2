@@ -4,7 +4,8 @@
 SceneManager::SceneManager()
 {
 	m_pSceneFactory = new SceneFactory;
-	m_pScene = m_pSceneFactory->Create(SceneBase::SCENE_ID::TITLE);
+	//Å‰‚Ì‰æ–Ê‚ÌID‚ð“ü‚ê‚Ä‚¨‚­
+	m_pScene = m_pSceneFactory->Create(SceneBase::SCENE_ID::MAIN);
 }
 
 SceneManager::~SceneManager()

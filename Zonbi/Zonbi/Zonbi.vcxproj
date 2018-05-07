@@ -140,6 +140,8 @@
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneFactory.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="TitleBackgraund.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Zombie.h" />
     <ClInclude Include="ZombieManager.h" />
@@ -159,6 +161,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneFactory.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Title.cpp" />
+    <ClCompile Include="TitleBackgraund.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Zombie.cpp" />
     <ClCompile Include="ZombieManager.cpp" />

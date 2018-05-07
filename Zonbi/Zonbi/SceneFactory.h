@@ -5,9 +5,9 @@
 
 class SceneFactory {
 public:
-	SceneFactory();
-	~SceneFactory();
-
+	SceneFactory() {};
+	~SceneFactory() {};
+	//ƒV[ƒ“‚ÌØ‚è‘Ö‚¦‚ª‚ ‚Á‚½ê‡‚±‚±‚Ås‚¤
 	SceneBase* Create(SceneBase::SCENE_ID sceneID);
 };
 #endif

@@ -28,9 +28,11 @@ public:
 	void EndRender();
 	//2D画像読み込み関数
 	//第一引数ファイルパス
-	//第二引数画像を置く場所
 	void InitGraphics(char* filepath);
 	void InitGraphicsPermeation(char* filepath);
+	//CUSTOMVERTEXに値を設定する関数
+	void SetVertex(float width,float height, DWORD color, float tu,float tv,
+						CUSTOMVERTEX* DrawVerte, D3DXVECTOR2* pos);
 	//画像を上に方向転換
 	//引数上に向けたい画像のCUSTOMVERTEX
 	void Direction_Up(CUSTOMVERTEX Tmp[]);

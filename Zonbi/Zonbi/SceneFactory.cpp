@@ -1,13 +1,5 @@
-#include "SceneFactory.h"
-
-
-SceneFactory::SceneFactory()
-{
-}
-
-SceneFactory::~SceneFactory()
-{
-}
+#include"SceneFactory.h"
+#include"Game.h"
 
 SceneBase* SceneFactory::Create(SceneBase::SCENE_ID sceneID)
 {
@@ -19,7 +11,7 @@ SceneBase* SceneFactory::Create(SceneBase::SCENE_ID sceneID)
 		break;
 
 	case SceneBase::SCENE_ID::MAIN:
-	//	retScene = new MainScene;
+		retScene = new Game;
 		break;
 
 	case SceneBase::SCENE_ID::GAMECLEAR:

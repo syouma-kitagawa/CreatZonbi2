@@ -19,9 +19,6 @@
     <Filter Include="ソース ファイル\Player">
       <UniqueIdentifier>{4f0502af-c698-410d-8fca-89057d8ecfe7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game">
-      <UniqueIdentifier>{00e6f1c7-938f-482f-89e5-414edd231e7c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Base">
       <UniqueIdentifier>{2c6b2eaa-eab9-499f-bbd3-542d973531a1}</UniqueIdentifier>
     </Filter>
@@ -43,6 +40,15 @@
     <Filter Include="ソース ファイル\Scene">
       <UniqueIdentifier>{9bad8335-9b4b-4829-92c1-b1bd3470930e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Scene\SceneManager">
+      <UniqueIdentifier>{2fe9e158-715e-47ee-aaba-dd2d4c707421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Title">
+      <UniqueIdentifier>{211176ef-6483-4235-b3f4-5b28f580ab8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Game">
+      <UniqueIdentifier>{00e6f1c7-938f-482f-89e5-414edd231e7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectGraphics.h">
@@ -58,7 +64,7 @@
       <Filter>ソース ファイル\Player</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>ソース ファイル\Game</Filter>
+      <Filter>ソース ファイル\Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>ソース ファイル\Event</Filter>
@@ -93,14 +99,20 @@
     <ClInclude Include="HumanParameter.h">
       <Filter>ソース ファイル\Charctor\Human</Filter>
     </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="SceneFactory.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\Scene\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>ソース ファイル\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBackgraund.h">
+      <Filter>ソース ファイル\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ソース ファイル\Scene\SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +132,7 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル\Game</Filter>
+      <Filter>ソース ファイル\Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Event.cpp">
       <Filter>ソース ファイル\Event</Filter>
@@ -150,10 +162,16 @@
       <Filter>ソース ファイル\Charctor\Human</Filter>
     </ClCompile>
     <ClCompile Include="SceneFactory.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\Scene\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>ソース ファイル\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBackgraund.cpp">
+      <Filter>ソース ファイル\Scene\Title</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

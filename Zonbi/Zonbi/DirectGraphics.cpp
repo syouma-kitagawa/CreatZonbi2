@@ -155,6 +155,24 @@ void DirectGraphics::InitGraphicsPermeation(char*filepath)
 		m_Texture.insert(std::make_pair(filepath, tmp));
 	}
 }
+
+void DirectGraphics::SetVertex(float width, float height, DWORD color, float tu, float tv,
+									CUSTOMVERTEX* DrawVerte, D3DXVECTOR2* pos)
+{
+	CUSTOMVERTEX  Vertex[4]{
+		{ -width / 2, -height / 2, 1.0f, 1.0f, color, 0.f,  0.f },
+		{  width / 2, -height / 2, 1.0f, 1.0f, color, tu, 0.f },
+		{  width / 2,  height / 2, 1.0f, 1.0f, color, tu, tv },
+		{ -width / 2,  height / 2, 1.0f, 1.0f, color, 0.f, tv }
+	};
+	//à íuÇ∆í∏ì_èÓïÒÇë„ì¸
+	for (int i = 0; i < 4; i++) {
+		DrawVerte[i] = Vertex[i];
+		DrawVerte[i].x += pos->x;
+		DrawVerte[i].y += pos->y;
+	}
+}
+
 void DirectGraphics::Direction_Up(CUSTOMVERTEX Tmp[])
 {
 	float TmpTu;

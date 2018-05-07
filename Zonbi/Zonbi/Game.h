@@ -4,15 +4,14 @@
 #include"ZombieManager.h"
 #include"HumanManager.h"
 #include"Player.h"
+#include"SceneBase.h"
 
-class Game
-{
+class Game : public SceneBase{
 public:
 	Game();
 	~Game();
 	void Draw();
-	void Update();
-	void RunGame();
+	SCENE_ID Update();
 private:
 	ZombieManager* m_ZombieManager;
 	HumanManager* m_HumanManager;

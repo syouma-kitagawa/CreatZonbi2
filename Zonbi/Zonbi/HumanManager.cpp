@@ -7,15 +7,14 @@
 
 HumanManager::HumanManager(ZombieManager* manager) : m_pZombieManager(manager)
 {
-	//int humanNum = HumanParameter::GetInstance().GetHumanNum();
-	//m_pHuman.resize(humanNum);
-	//for (int i = 0; i < humanNum; i++) {
-	//	HumanParameter param = HumanParameter::GetInstance();
-	//	D3DXVECTOR2 vec = param.GetHumanParam(i)->pos;
-	//	//m_pHuman[i]->Setpos(&(HumanParameter::GetInstance().GetHumanParam(i)->pos));
-	//	m_pHuman[i]->Setpos(&(vec));
-	//}
-	
+	int humanNum = HumanParameter::GetInstance().GetHumanNum();
+	m_pHuman.resize(humanNum);
+	for (int i = 0; i < humanNum; i++) {
+		HumanParameter param = HumanParameter::GetInstance();
+		D3DXVECTOR2 vec = param.GetHumanParam(i)->pos;
+		//m_pHuman[i]->Setpos(&(HumanParameter::GetInstance().GetHumanParam(i)->pos));
+		m_pHuman[i] = new Human(vec);
+	}
 }
 
 

@@ -4,7 +4,7 @@
 #include"DirectGraphics.h"
 #include"DirectInput.h"
 #include"Event.h"
-#include"Game.h"
+#include"SceneManager.h"
 
 #define TITLE 	TEXT("ZONBI")
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
@@ -64,7 +64,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	DirectGraphics::CreateInstance(hWnd);
 	DirectInput::CrateInstance(hWnd, hInstance);
 	Event::CreateInstance(hWnd);
-	Game game;
+	SceneManager scene;
 
 	DWORD SyncOld = timeGetTime();	//	ƒVƒXƒeƒ€ŽžŠÔ‚ðŽæ“¾
 	DWORD SyncNow;
@@ -81,10 +81,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
+
 			SyncNow = timeGetTime();
 			if (SyncNow - SyncOld >= 1000 / 60) //	1•bŠÔ‚É60‰ñ‚±‚Ì’†‚É“ü‚é‚Í‚¸
 			{
-				game.RunGame();
+				scene.Run();
 				SyncOld = SyncNow;
 			}
 		}
