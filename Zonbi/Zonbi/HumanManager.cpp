@@ -3,6 +3,7 @@
 #include"HumanManager.h"
 #include"ZombieManager.h"
 #include"HumanParameter.h"
+#include"ZombieParameter.h"
 
 
 HumanManager::HumanManager(ZombieManager* manager) : m_pZombieManager(manager)
@@ -12,7 +13,9 @@ HumanManager::HumanManager(ZombieManager* manager) : m_pZombieManager(manager)
 	for (int i = 0; i < humanNum; i++) {
 		HumanParameter param = HumanParameter::GetInstance();
 		D3DXVECTOR2 vec = param.GetHumanParam(i)->pos;
-		m_pHuman[i] = new Human(vec);
+		int width = param.GetHumanParam(i)->width;
+		int height = param.GetHumanParam(i)->height;
+		m_pHuman[i] = new Human(&vec, width, height);
 	}
 }
 
@@ -25,21 +28,24 @@ HumanManager::~HumanManager()
 
 void HumanManager::Update()
 {
+
 	int humanCount = 0;
 	for (auto ite = m_pHuman.begin(); ite != m_pHuman.end(); ++ite) {
 		(*ite)->Update();
-		if ((*ite)->IsDeth()){
+		if ((*ite)->IsRevival()){
 			//IsDeth‚ªtrue‚ÌHuman‚ğÁ‚µ‚ÄZonbi‚É’Ç‰Á
-			{
-				m_pZombieManager->ZombieAdd(*(m_pHuman[humanCount]->Getpos()));
-			}
+			ZombieParameter::GetInstance().LoadZombie();
+			float speed = ZombieParameter::GetInstance().GetZombieParam()->speed;
+			int width = ZombieParameter::GetInstance().GetZombieParam()->width;
+			int height = ZombieParameter::GetInstance().GetZombieParam()->height;
+			m_pZombieManager->ZombieAdd((m_pHuman[humanCount]->Getpos()), speed, width, height);
+			m_Humancnt--;
 		}
 		humanCount++;
 	}
 	auto removeIfFunc = [](Human* human)
 	{
-		if (human->IsDeth() == true) return true;
-
+		if (human->IsRevival() == true) return true;
 		return false;
 	};
 	m_pHuman.erase(

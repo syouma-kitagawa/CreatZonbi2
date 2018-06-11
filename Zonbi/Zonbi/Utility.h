@@ -1,6 +1,9 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+//-----------------------------------------------------------------------------------------
+//include
+//-----------------------------------------------------------------------------------------
 #include<d3dx9.h>
 
 namespace Utility {
@@ -69,5 +72,7 @@ namespace Utility {
 		BUTTON_STATE LeftMouse;		//!< マウスの左クリックの状態
 		BUTTON_STATE RightMouse;	//!< マウスの右クリックの状態
 	};
+
+	char TransformChar(int val);
 }
 #endif

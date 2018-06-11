@@ -1,6 +1,9 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+//------------------------------------------------------------------------------------------
+//include
+//------------------------------------------------------------------------------------------
 #include <windows.h>
 #include<stdio.h>
 #include<d3dx9.h>
@@ -17,12 +20,11 @@ public:
 	HWND GethWnd() { return m_hWnd; }
 	void SethWnd(HWND hwnd) { m_hWnd = hwnd; }
 
-	D3DXVECTOR2 GetMousePosPointToVector2()
+	D3DXVECTOR2* GetMousePosPointToVector2(D3DXVECTOR2* out)
 	{ 
-		D3DXVECTOR2 vectorRet;
-		vectorRet.x = m_MousePos.x;
-		vectorRet.y = m_MousePos.y;
-		return vectorRet;
+		out->x = m_MousePos.x;
+		out->y = m_MousePos.y;
+		return out;
 	}
 	void SetMousePos(POINT mousePos) {m_MousePos = mousePos;}
 private:

@@ -1,12 +1,12 @@
-#include"Player.h"
+#include"PlayerControl.h"
 #include"Event.h"
 
-Player::Player(){
+PlayerControl::PlayerControl(){
 	m_MousePos.x = 0.0f;
 	m_MousePos.y = 0.0f;
 }
 
-void Player::MouseCursor()
+void PlayerControl::MouseCursor()
 {
 	//マウス座標取得
 	GetCursorPos(&m_MousePos);
@@ -15,7 +15,7 @@ void Player::MouseCursor()
 	Event::GetInstance()->SetMousePos(m_MousePos);
 }
 
-void Player::Update() 
+void PlayerControl::Update() 
 {
 	MouseCursor();
 }

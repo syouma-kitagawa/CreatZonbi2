@@ -51,8 +51,6 @@ DirectGraphics::~DirectGraphics()
 {
 	m_pDirect3D->Release();			// DirectXオブジェクトの解放
 	m_pDirect3DDevice->Release();	// DirectXのデバイスの解放
-	m_pDirect3D = NULL;
-	m_pDirect3DDevice = NULL;
 }
 
 //描画の初期化関数
@@ -223,10 +221,41 @@ void DirectGraphics::Direction_Left(CUSTOMVERTEX Tmp[])
 	Tmp[2].tu = Tmp[3].tu;
 	Tmp[3].tu = TmpTv;
 }
-void DirectGraphics::Animation(CUSTOMVERTEX Tmp[], float Tu, int RightSlide)
+void DirectGraphics::Animation(CUSTOMVERTEX tmp[], float tu, int animNum,float tv,int animDown)
 {
-	Tmp[0].tu += Tu * RightSlide;
-	Tmp[1].tu += Tu * RightSlide;
-	Tmp[2].tu += Tu * RightSlide;
-	Tmp[3].tu += Tu * RightSlide;
+	for (int i = 0; i < 4; i++) {
+		tmp[i].tu += tu * animNum;
+	}
+	for (int i = 0; i < 4; i++) {
+		tmp[i].tv += tv * animDown;
+	}
+}
+
+void DirectGraphics::AnimationTu(CUSTOMVERTEX tmp[], float tu, int animNum)
+{
+	for (int i = 0; i < 4; i++) {
+		tmp[i].tu += tu * animNum;
+	}
+}
+
+void DirectGraphics::AnimationTv(CUSTOMVERTEX tmp[], float tv)
+{
+	for (int i = 0; i < 4; i++) {
+		tmp[i].tv = tv;
+	}
+}
+
+void DirectGraphics::TrimingVertex(CUSTOMVERTEX vertex[], float leftTopTu, float leftTopTv, float width, float height, float pngWidth, float pngHeight) {
+	vertex[0].tu = leftTopTu / pngWidth;
+	vertex[0].tv = leftTopTv / pngHeight;
+
+	vertex[1].tu = (leftTopTu + width) / pngWidth;
+	vertex[1].tv = leftTopTv / pngHeight;
+
+	vertex[2].tu = (leftTopTu + width) / pngWidth;
+	vertex[2].tv = (leftTopTv + height) / pngHeight;
+
+	vertex[3].tu = leftTopTu / pngWidth;
+	vertex[3].tv = (leftTopTv + height) / pngHeight;
+
 }

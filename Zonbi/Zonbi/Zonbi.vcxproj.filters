@@ -16,9 +16,6 @@
     <Filter Include="ソース ファイル\Lib">
       <UniqueIdentifier>{f2c60b85-db97-4cef-973a-a56c990eeb19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Player">
-      <UniqueIdentifier>{4f0502af-c698-410d-8fca-89057d8ecfe7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Base">
       <UniqueIdentifier>{2c6b2eaa-eab9-499f-bbd3-542d973531a1}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,66 @@
     <Filter Include="ソース ファイル\Scene\Game">
       <UniqueIdentifier>{00e6f1c7-938f-482f-89e5-414edd231e7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Charctor\Zombie\PlayerZombie">
+      <UniqueIdentifier>{b1818ee3-47de-4fc4-b19c-73713e45c89c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Parameter">
+      <UniqueIdentifier>{15d0d973-3417-4f09-b812-2a7d0932a487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Parameter\Human">
+      <UniqueIdentifier>{2b02dbe8-f3c4-4aab-9ea2-88f30d7b3c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Parameter\Zombie">
+      <UniqueIdentifier>{0e237293-2405-445a-ac5c-a66796117e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Parameter\Zombie\PlayerZombie">
+      <UniqueIdentifier>{032dda49-73ff-450f-afa1-59e74f794054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage">
+      <UniqueIdentifier>{d483a2e5-af94-4718-a43a-bde75b4c038f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage\StageObject">
+      <UniqueIdentifier>{deba98e8-02c8-420b-aa8d-bc8e94cad3b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Parameter\Stage">
+      <UniqueIdentifier>{1c418d38-2653-447c-9b94-7f423c3c558c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Parameter\Stage\Rooｍ">
+      <UniqueIdentifier>{4df1669e-d49d-4f15-9079-7ec5859a0d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Charctor\Parameter\Stage\StageObject">
+      <UniqueIdentifier>{59b5fe64-02f1-473f-bd49-e547cd5753b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\PlayerControl">
+      <UniqueIdentifier>{4f0502af-c698-410d-8fca-89057d8ecfe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage\WayPoint">
+      <UniqueIdentifier>{175b2b07-7a0c-4955-bf1d-9de22defbb8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage\Corridor">
+      <UniqueIdentifier>{b1390420-ec80-4add-a0b3-a8c3fd67b2e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage\Room">
+      <UniqueIdentifier>{8d248c38-7633-43a8-8857-cc21cb527024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Game\Backgraund">
+      <UniqueIdentifier>{aa046dca-794b-403a-9717-5c3e7cd1c94f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Font">
+      <UniqueIdentifier>{b10878e3-3fc2-4841-883c-ac54fee85ea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Game\TimeLimit">
+      <UniqueIdentifier>{cdd91d23-beb8-4e70-9ee4-3f217ef20218}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\GameClear">
+      <UniqueIdentifier>{df6f07db-32a5-498c-a134-50b6f3fa4fd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Game\GameOver">
+      <UniqueIdentifier>{c2b4f400-af11-482f-a907-0cdea2ce48b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib\Sound">
+      <UniqueIdentifier>{ac0ea16e-f25f-4b3a-9fbb-41aafe5b0d11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectGraphics.h">
@@ -60,9 +117,6 @@
     <ClInclude Include="Utility.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ソース ファイル\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>ソース ファイル\Scene\Game</Filter>
     </ClInclude>
@@ -73,9 +127,6 @@
       <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
     <ClInclude Include="ObjectBase.h">
-      <Filter>ソース ファイル\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="CharaObject.h">
       <Filter>ソース ファイル\Base</Filter>
     </ClInclude>
     <ClInclude Include="Human.h">
@@ -96,9 +147,6 @@
     <ClInclude Include="ZombieManager.h">
       <Filter>ソース ファイル\Charctor\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="HumanParameter.h">
-      <Filter>ソース ファイル\Charctor\Human</Filter>
-    </ClInclude>
     <ClInclude Include="SceneFactory.h">
       <Filter>ソース ファイル\Scene\SceneManager</Filter>
     </ClInclude>
@@ -111,11 +159,80 @@
     <ClInclude Include="TitleBackgraund.h">
       <Filter>ソース ファイル\Scene\Title</Filter>
     </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>ソース ファイル\Scene\SceneManager</Filter>
+    <ClInclude Include="PlayerZombie.h">
+      <Filter>ソース ファイル\Charctor\Zombie\PlayerZombie</Filter>
+    </ClInclude>
+    <ClInclude Include="StageObject.h">
+      <Filter>ソース ファイル\Stage\StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="StageObjectBase.h">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="StageObjectParameter.h">
+      <Filter>ソース ファイル\Charctor\Parameter\Stage\StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="HumanParameter.h">
+      <Filter>ソース ファイル\Charctor\Parameter\Human</Filter>
     </ClInclude>
     <ClInclude Include="ZombieParameter.h">
-      <Filter>ソース ファイル\Charctor\Zombie</Filter>
+      <Filter>ソース ファイル\Charctor\Parameter\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerZombieParameter.h">
+      <Filter>ソース ファイル\Charctor\Parameter\Zombie\PlayerZombie</Filter>
+    </ClInclude>
+    <ClInclude Include="StageManager.h">
+      <Filter>ソース ファイル\Stage\StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>ソース ファイル\Stage\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomParameter.h">
+      <Filter>ソース ファイル\Charctor\Parameter\Stage\Rooｍ</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaObjectBase.h">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonBase.h">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Corridor.h">
+      <Filter>ソース ファイル\Stage\Corridor</Filter>
+    </ClInclude>
+    <ClInclude Include="WayPointBase.h">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="WayPointManager.h">
+      <Filter>ソース ファイル\Stage\WayPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBackground.h">
+      <Filter>ソース ファイル\Scene\Game\Backgraund</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControl.h">
+      <Filter>ソース ファイル\PlayerControl</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>ソース ファイル\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeLimit.h">
+      <Filter>ソース ファイル\Scene\Game\TimeLimit</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClear.h">
+      <Filter>ソース ファイル\Scene\GameClear</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClearBackground.h">
+      <Filter>ソース ファイル\Scene\GameClear</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>ソース ファイル\Scene\Game\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverBackground.h">
+      <Filter>ソース ファイル\Scene\Game\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundBufferManager.h">
+      <Filter>ソース ファイル\Lib\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,9 +244,6 @@
     </ClCompile>
     <ClCompile Include="Utility.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\Player</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
@@ -155,14 +269,8 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Zombie.cpp">
-      <Filter>ソース ファイル\Charctor\Zombie</Filter>
-    </ClCompile>
     <ClCompile Include="ZombieManager.cpp">
       <Filter>ソース ファイル\Charctor\Zombie</Filter>
-    </ClCompile>
-    <ClCompile Include="HumanParameter.cpp">
-      <Filter>ソース ファイル\Charctor\Human</Filter>
     </ClCompile>
     <ClCompile Include="SceneFactory.cpp">
       <Filter>ソース ファイル\Scene\SceneManager</Filter>
@@ -176,8 +284,68 @@
     <ClCompile Include="TitleBackgraund.cpp">
       <Filter>ソース ファイル\Scene\Title</Filter>
     </ClCompile>
-    <ClCompile Include="ZombieParameter.cpp">
+    <ClCompile Include="PlayerZombie.cpp">
+      <Filter>ソース ファイル\Charctor\Zombie\PlayerZombie</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
       <Filter>ソース ファイル\Charctor\Zombie</Filter>
+    </ClCompile>
+    <ClCompile Include="StageObject.cpp">
+      <Filter>ソース ファイル\Stage\StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="StageObjectParameter.cpp">
+      <Filter>ソース ファイル\Charctor\Parameter\Stage\StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="HumanParameter.cpp">
+      <Filter>ソース ファイル\Charctor\Parameter\Human</Filter>
+    </ClCompile>
+    <ClCompile Include="ZombieParameter.cpp">
+      <Filter>ソース ファイル\Charctor\Parameter\Zombie</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerZombieParameter.cpp">
+      <Filter>ソース ファイル\Charctor\Parameter\Zombie\PlayerZombie</Filter>
+    </ClCompile>
+    <ClCompile Include="StageManager.cpp">
+      <Filter>ソース ファイル\Stage\StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>ソース ファイル\Stage\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomParameter.cpp">
+      <Filter>ソース ファイル\Charctor\Parameter\Stage\Rooｍ</Filter>
+    </ClCompile>
+    <ClCompile Include="Corridor.cpp">
+      <Filter>ソース ファイル\Stage\Corridor</Filter>
+    </ClCompile>
+    <ClCompile Include="WayPointManager.cpp">
+      <Filter>ソース ファイル\Stage\WayPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="GameBackground.cpp">
+      <Filter>ソース ファイル\Scene\Game\Backgraund</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerControl.cpp">
+      <Filter>ソース ファイル\PlayerControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>ソース ファイル\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeLimit.cpp">
+      <Filter>ソース ファイル\Scene\Game\TimeLimit</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClear.cpp">
+      <Filter>ソース ファイル\Scene\GameClear</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClearBackground.cpp">
+      <Filter>ソース ファイル\Scene\GameClear</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>ソース ファイル\Scene\Game\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverBackground.cpp">
+      <Filter>ソース ファイル\Scene\Game\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundBufferManager.cpp">
+      <Filter>ソース ファイル\Lib\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

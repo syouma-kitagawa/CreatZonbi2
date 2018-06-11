@@ -1,6 +1,6 @@
-#include "HumanParameter.h"
-
 #include<string>
+
+#include "HumanParameter.h"
 
 
 HumanParameter* HumanParameter::m_pInstance = nullptr;
@@ -29,6 +29,10 @@ void HumanParameter::LoadHuman()
 			static_cast<int>(GetPrivateProfileInt(name.c_str(), "PosX", 1, "Property/HumanData.ini"));
 		m_pHumanPram[i].pos.y =
 			static_cast<int>(GetPrivateProfileInt(name.c_str(), "PosY", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].width =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Width", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].height =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Height", 1, "Property/HumanData.ini"));
 		m_pHumanPram[i].speed =
 			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Speed", 1, "Property/HumanData.ini"));
 	}

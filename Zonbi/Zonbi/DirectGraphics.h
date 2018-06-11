@@ -1,5 +1,9 @@
 #ifndef DIRECTGRAPHICS_H
 #define DIRECTGRAPHICS_H
+
+//-----------------------------------------------------------------------------------------
+//include
+//-----------------------------------------------------------------------------------------
 #include <d3dx9.h>
 #include <map>
 #include <stdio.h>
@@ -32,24 +36,27 @@ public:
 	void InitGraphicsPermeation(char* filepath);
 	//CUSTOMVERTEXに値を設定する関数
 	void SetVertex(float width,float height, DWORD color, float tu,float tv,
-						CUSTOMVERTEX* DrawVerte, D3DXVECTOR2* pos);
+						CUSTOMVERTEX* drawVerte, D3DXVECTOR2* pos);
 	//画像を上に方向転換
 	//引数上に向けたい画像のCUSTOMVERTEX
-	void Direction_Up(CUSTOMVERTEX Tmp[]);
+	void Direction_Up(CUSTOMVERTEX tmp[]);
 	//画像を下に方向転換
 	//引数下に向けたい画像のCUSTOMVERTEX
-	void Direction_Down(CUSTOMVERTEX Tmp[]);
+	void Direction_Down(CUSTOMVERTEX tmp[]);
 	//画像を右に方向転換
 	//引数右に向けたい画像のCUSTOMVERTEX
-	void Direction_Right(CUSTOMVERTEX Tmp[]);
+	void Direction_Right(CUSTOMVERTEX tmp[]);
 	//画像を左に方向転換
 	//引数左に向けたい画像のCUSTOMVERTEX
-	void Direction_Left(CUSTOMVERTEX Tmp[]);
-	//統合ファイルのアニメーション
+	void Direction_Left(CUSTOMVERTEX tmp[]);
+	//統合ファイルのアニメーション（悩み中）
 	//第一引数アニメーションさせたい統合ファイルのCUSTOMVERTEX
 	//第二引数アニメーションさせたい統合ファイルのTUの値
-	//第三引数アニメーションさせたい統合ファイルをどれだけずらすか
-	void Animation(CUSTOMVERTEX Tmp[], float Tuint, int RightSlide);
+	//第三引数アニメーションさせたい統合ファイルの
+	void Animation(CUSTOMVERTEX tmp[], float tu, int animNum, float tv, int animDown);
+	void AnimationTu(CUSTOMVERTEX tmp[], float tu,int animNum);
+	void AnimationTv(CUSTOMVERTEX tmp[], float tv);
+	void TrimingVertex(CUSTOMVERTEX vertex[], float leftTopTu, float leftTopTv, float width, float height, float pngWidth, float pngHeight);
 	static DirectGraphics* GetpInstance() { return pInstance; }
 private:
 	//2Dグラフィックス生成

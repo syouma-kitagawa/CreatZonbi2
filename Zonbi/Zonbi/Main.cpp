@@ -3,8 +3,11 @@
 
 #include"DirectGraphics.h"
 #include"DirectInput.h"
+#include"DirectSound.h"
 #include"Event.h"
 #include"SceneManager.h"
+#include"ZombieParameter.h"
+
 
 #define TITLE 	TEXT("ZONBI")
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
@@ -15,6 +18,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 {
 	switch (msg)
 	{
+	case WM_KEYDOWN:        // キーが押されたとき
+		if (wp == VK_ESCAPE)
+		{
+			DestroyWindow(hWnd);
+		}
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
@@ -48,14 +57,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	hWnd = CreateWindow(
 		TITLE,								//ウィンドウのクラス名
 		TITLE, 							//ウィンドウのタイトル
-		WS_OVERLAPPEDWINDOW | WS_VISIBLE,	//ウィンドウスタイル
-		CW_USEDEFAULT,						// ウィンドウの横方向の位置x
-		CW_USEDEFAULT,						// ウィンドウの縦方向の位置y
+		WS_VISIBLE | WS_POPUP,	//ウィンドウスタイル
+		0,						// ウィンドウの横方向の位置x
+		0,						// ウィンドウの縦方向の位置y
 		DISPLAY_WIDTH,							// Width（幅）
 		DISPLAY_HEIGHT,							// Height（高さ）
 		NULL,
 		NULL,
-		hInstance,							// アプリケーションインスタンスのハンドル
+		hInstance,						
+		// アプリケーションインスタンスのハンドル
 		NULL
 	);
 
@@ -63,6 +73,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	DirectGraphics::CreateInstance(hWnd);
 	DirectInput::CrateInstance(hWnd, hInstance);
+	DirectSound::CreateInstance(hWnd);
 	Event::CreateInstance(hWnd);
 	SceneManager scene;
 
