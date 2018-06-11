@@ -64,5 +64,8 @@ void Game::Draw()
 	for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
 		(*ite)->Draw();
 	}
+#ifdef DEBUG_RUN
+	DebugDrawHitRect(m_StageObjectManager);
+#endif
 	DirectGraphics::GetpInstance()->EndRender();
 }

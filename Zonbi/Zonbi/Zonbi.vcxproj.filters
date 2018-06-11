@@ -106,6 +106,9 @@
     <Filter Include="ソース ファイル\Lib\Sound">
       <UniqueIdentifier>{ac0ea16e-f25f-4b3a-9fbb-41aafe5b0d11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Debag">
+      <UniqueIdentifier>{b27ba109-5233-4ca7-a13e-d02ea133e697}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectGraphics.h">
@@ -234,6 +237,9 @@
     <ClInclude Include="SoundBufferManager.h">
       <Filter>ソース ファイル\Lib\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="Debag.h">
+      <Filter>ソース ファイル\Debag</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectGraphics.cpp">
@@ -346,6 +352,9 @@
     </ClCompile>
     <ClCompile Include="SoundBufferManager.cpp">
       <Filter>ソース ファイル\Lib\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Debag.cpp">
+      <Filter>ソース ファイル\Debag</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

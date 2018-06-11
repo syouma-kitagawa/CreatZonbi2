@@ -8,6 +8,8 @@
 #include <map>
 #include <stdio.h>
 
+#include"Debag.h"
+
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
 struct CUSTOMVERTEX
@@ -53,11 +55,16 @@ public:
 	//第一引数アニメーションさせたい統合ファイルのCUSTOMVERTEX
 	//第二引数アニメーションさせたい統合ファイルのTUの値
 	//第三引数アニメーションさせたい統合ファイルの
+	void AnimationTv(CUSTOMVERTEX tmp[], float tv);
 	void Animation(CUSTOMVERTEX tmp[], float tu, int animNum, float tv, int animDown);
 	void AnimationTu(CUSTOMVERTEX tmp[], float tu,int animNum);
-	void AnimationTv(CUSTOMVERTEX tmp[], float tv);
 	void TrimingVertex(CUSTOMVERTEX vertex[], float leftTopTu, float leftTopTv, float width, float height, float pngWidth, float pngHeight);
 	static DirectGraphics* GetpInstance() { return pInstance; }
+
+#ifdef DEBUG_RUN
+	void DebugDrawBox(CUSTOMVERTEX vertex[]);
+#endif
+
 private:
 	//2Dグラフィックス生成
 	DirectGraphics(HWND hWnd);

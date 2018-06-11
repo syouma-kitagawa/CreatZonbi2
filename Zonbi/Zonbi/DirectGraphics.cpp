@@ -259,3 +259,11 @@ void DirectGraphics::TrimingVertex(CUSTOMVERTEX vertex[], float leftTopTu, float
 	vertex[3].tv = (leftTopTv + height) / pngHeight;
 
 }
+
+void DirectGraphics::DebugDrawBox(CUSTOMVERTEX vertex[])
+{
+	// テクスチャをステージに割り当てる
+	m_pDirect3DDevice->SetTexture(0, NULL);
+	// 描画
+	m_pDirect3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, vertex, sizeof(CUSTOMVERTEX));
+}

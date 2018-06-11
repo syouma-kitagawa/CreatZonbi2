@@ -128,6 +128,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Corridor.h" />
+    <ClInclude Include="Debag.h" />
     <ClInclude Include="DirectGraphics.h" />
     <ClInclude Include="DirectInput.h" />
     <ClInclude Include="DirectSound.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Corridor.cpp" />
+    <ClCompile Include="Debag.cpp" />
     <ClCompile Include="DirectGraphics.cpp" />
     <ClCompile Include="DirectInput.cpp" />
     <ClCompile Include="DirectSound.cpp" />
