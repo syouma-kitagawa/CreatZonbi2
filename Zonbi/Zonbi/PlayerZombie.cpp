@@ -17,7 +17,6 @@ PlayerZombie::PlayerZombie(D3DXVECTOR2* pos,float speed,int width,int height)
 	CollisionManager::GetcollisionManager()->AddCollision(m_pCollision);
 	DirectGraphics::GetpInstance()->InitGraphics("Texture/combine.png");
 
-
 	for (int i = 0; i < 4; i++) {
 		m_pTmpCollision[i] = new Collision();
 		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
@@ -31,6 +30,9 @@ PlayerZombie::PlayerZombie(D3DXVECTOR2* pos,float speed,int width,int height)
 PlayerZombie::~PlayerZombie()
 {
 	delete m_pCollision;
+	for (int i = 0; i < 4; i++) {
+		delete m_pTmpCollision[i];
+	}
 }
 
 void PlayerZombie::Draw() 
@@ -185,15 +187,15 @@ void PlayerZombie::Update()
 {
 	m_BeforePos = m_Pos;
 	m_CollisionPos[0].x = m_Pos.x;
-	m_CollisionPos[0].y = m_Pos.y - m_Speed;
+	m_CollisionPos[0].y = m_Pos.y - m_Speed - m_Height / 2;
 	m_CollisionPos[1].x = m_Pos.x;
-	m_CollisionPos[1].y = m_Pos.y + m_Speed;
-	m_CollisionPos[2].x = m_Pos.x + m_Speed;
+	m_CollisionPos[1].y = m_Pos.y + m_Speed + m_Height / 2;
+	m_CollisionPos[2].x = m_Pos.x + m_Speed + m_Width / 2;
 	m_CollisionPos[2].y = m_Pos.y;
-	m_CollisionPos[3].x = m_Pos.x - m_Speed;
+	m_CollisionPos[3].x = m_Pos.x - m_Speed - m_Width / 2;
 	m_CollisionPos[3].y = m_Pos.y;
 
-	if (m_pCollision->GetOtherCollisionId() == Collision::HUMAN) {
+	if (m_pCollision->IsSearchOtherCollisionId(m_pCollision->GetOtherCollisionId(), Collision::HUMAN)) {
 		m_IsAttack = true;
 	}
 
@@ -215,33 +217,41 @@ void PlayerZombie::Update()
 		m_RoutePointNum = 0;*/
 		//m_IsClick = true;
 	}
+	if (!m_pCollision->IsSearchOtherCollisionId(m_pCollision->GetOtherCollisionId(), Collision::HUMAN)) {
+		if (m_Difference.y > 0) {
+			if (m_Pos.y + m_Speed < m_NextPos.y
+				&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+				m_Pos.y += m_Speed;
+				m_Direction = DOWN;
+			}
+			else if (m_Pos.x + m_Speed < m_NextPos.x
+				&& !m_pTmpCollision[2]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+				m_Pos.x += m_Speed;
+				m_Direction = RIGHT;
+			}
 
-	if (m_Difference.x > 0) {
-		if (m_Pos.y + m_Speed <= m_NextPos.y && m_pTmpCollision[1]->GetOtherCollisionId() != Collision::OBJECT) {
-			m_Pos.y += m_Speed;
-			m_Direction = DOWN;
+			else if (m_Pos.x - m_Speed > m_NextPos.x
+				&& !m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+				m_Pos.x -= m_Speed;
+				m_Direction = LEFT;
+			}
 		}
-		else if (m_Pos.x + m_Speed < m_NextPos.x && m_pTmpCollision[2]->GetOtherCollisionId() != Collision::OBJECT) {
-			m_Pos.x += m_Speed;
-			m_Direction = RIGHT;
-		}
-		else if (m_Pos.x - m_Speed > m_NextPos.x && m_pTmpCollision[3]->GetOtherCollisionId() != Collision::OBJECT) {
-			m_Pos.x -= m_Speed;
-			m_Direction = LEFT;
-		}
-	}
-	else if (m_Difference.y < 0) {
-		if (m_Pos.y - m_Speed > m_NextPos.y && m_pTmpCollision[0]->GetOtherCollisionId() != Collision::OBJECT) {
-			m_Pos.y -= m_Speed;
-			m_Direction = UP;
-		}
-		else if (m_Pos.x - m_Speed > m_NextPos.x && m_pTmpCollision[3]->GetOtherCollisionId() != Collision::OBJECT) {
-			m_Pos.x -= m_Speed;
-			m_Direction = LEFT;
-		}
-		else if (m_Pos.x + m_Speed < m_NextPos.x && m_pTmpCollision[2]->GetOtherCollisionId() != Collision::OBJECT) {
-			m_Pos.x += m_Speed;
-			m_Direction = RIGHT;
+		else if (m_Difference.y < 0) {
+			if (m_Pos.y - m_Speed > m_NextPos.y
+				&& !m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+				m_Pos.y -= m_Speed;
+				m_Direction = UP;
+			}
+			else if (m_Pos.x - m_Speed > m_NextPos.x
+				&& !m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+				m_Pos.x -= m_Speed;
+				m_Direction = LEFT;
+			}
+			else if (m_Pos.x + m_Speed < m_NextPos.x
+				&& !m_pTmpCollision[2]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+				m_Pos.x += m_Speed;
+				m_Direction = RIGHT;
+			}
 		}
 	}
 	/*if (m_Difference.y > 0) {

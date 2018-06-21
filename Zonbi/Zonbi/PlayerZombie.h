@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------------------------
 #include"CharaObjectBase.h"
 #include"CollisionManager.h"
+#include"Debag.h"
 
 class WayPointManager;
 
@@ -17,6 +18,17 @@ public:
 
 	virtual void Update();
 	virtual void Draw();
+#ifdef DEBUG_RUN
+	Collision *GetCollision()
+	{
+		return m_pCollision;
+	}
+
+	Collision *GetTmpCollision(int idx)
+	{
+		return m_pTmpCollision[idx];
+	}
+#endif
 private:
 	bool DirectionCheck(Direction direction);
 	void ResetArray();

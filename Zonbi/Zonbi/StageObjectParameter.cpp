@@ -17,7 +17,7 @@ StageObjectParameter::~StageObjectParameter()
 void StageObjectParameter::LoadStageObject()
 {
 	m_StageObjectNum =
-		static_cast<int>(GetPrivateProfileInt("ï«ÇÃçáåv", "ObjectNum", 0, "Property/ObjectData.ini"));
+		static_cast<int>(GetPrivateProfileInt("ï«çáåv", "ObjectNum", 70, "Property/ObjectData.ini"));
 
 	m_pStageObjectPram = new StageObjectData[m_StageObjectNum];
 	for (int i = 0; i < m_StageObjectNum; i++) {

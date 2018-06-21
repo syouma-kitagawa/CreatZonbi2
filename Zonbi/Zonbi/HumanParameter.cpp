@@ -35,5 +35,21 @@ void HumanParameter::LoadHuman()
 			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Height", 1, "Property/HumanData.ini"));
 		m_pHumanPram[i].speed =
 			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Speed", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].tmpPos[0].x =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Pos0x", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].tmpPos[0].y =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Pos0y", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].tmpPos[1].x =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Pos1x", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].tmpPos[1].y =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Pos1y", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].tmpPos[2].x =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Pos2x", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].tmpPos[2].y =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Pos2y", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].tmpPos[3].x =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Pos3x", 1, "Property/HumanData.ini"));
+		m_pHumanPram[i].tmpPos[3].y =
+			static_cast<int>(GetPrivateProfileInt(name.c_str(), "Pos3y", 1, "Property/HumanData.ini"));
 	}
 }

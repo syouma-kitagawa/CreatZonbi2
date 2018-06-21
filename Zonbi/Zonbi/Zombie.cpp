@@ -137,33 +137,40 @@ void Zombie::Update()
 		m_Difference.x = m_NextPos.x - m_Pos.x;
 		m_Difference.y = m_NextPos.y - m_Pos.y;
 	}
-		if (m_Difference.y > 0) {
-			if (m_Pos.y + m_Speed <= m_NextPos.y && m_pTmpCollision[1]->GetOtherCollisionId() != Collision::OBJECT) {
-				m_Pos.y += m_Speed;
-				m_Direction = DOWN;
-			}
-			else if (m_Pos.x + m_Speed < m_NextPos.x && m_pTmpCollision[2]->GetOtherCollisionId() != Collision::OBJECT) {
-				m_Pos.x += m_Speed;
-				m_Direction = RIGHT;
-			}
-			else if (m_Pos.x - m_Speed > m_NextPos.x && m_pTmpCollision[3]->GetOtherCollisionId() != Collision::OBJECT) {
-				m_Pos.x -= m_Speed;
-				m_Direction = LEFT;
-			}
+	if (m_Difference.y > 0) {
+		if (m_Pos.y + m_Speed < m_NextPos.y
+			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+			m_Pos.y += m_Speed;
+			m_Direction = DOWN;
 		}
-		else if (m_Difference.y < 0) {
-			if (m_Pos.y - m_Speed > m_NextPos.y && m_pTmpCollision[0]->GetOtherCollisionId() != Collision::OBJECT) {
-				m_Pos.y -= m_Speed;
-				m_Direction = UP;
-			}
-			else if (m_Pos.x - m_Speed > m_NextPos.x && m_pTmpCollision[3]->GetOtherCollisionId() != Collision::OBJECT) {
-				m_Pos.x -= m_Speed;
-				m_Direction = LEFT;
-			}
-			else if (m_Pos.x + m_Speed < m_NextPos.x && m_pTmpCollision[2]->GetOtherCollisionId() != Collision::OBJECT) {
-				m_Pos.x += m_Speed;
-				m_Direction = RIGHT;
-			}
+		else if (m_Pos.x + m_Speed < m_NextPos.x
+			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+			m_Pos.x += m_Speed;
+			m_Direction = RIGHT;
+		}
+
+		else if (m_Pos.x - m_Speed > m_NextPos.x
+			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+			m_Pos.x -= m_Speed;
+			m_Direction = LEFT;
+		}
+	}
+	else if (m_Difference.y < 0) {
+		if (m_Pos.y - m_Speed > m_NextPos.y
+			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+			m_Pos.y -= m_Speed;
+			m_Direction = UP;
+		}
+		else if (m_Pos.x - m_Speed > m_NextPos.x
+			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+			m_Pos.x -= m_Speed;
+			m_Direction = LEFT;
+		}
+		else if (m_Pos.x + m_Speed < m_NextPos.x
+			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+			m_Pos.x += m_Speed;
+			m_Direction = RIGHT;
+		}
 	}
 	//‚Ç‚±‚ÉˆÚ“®‚·‚é”»’è‚Æ‚±‚ê‚©‚çŒü‚­Œü‚«
 	/*if (m_pCollision->GetOtherCollisionId() != (Collision::ZOMBIE)) {

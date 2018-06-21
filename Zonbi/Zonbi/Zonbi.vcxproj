@@ -146,6 +146,7 @@
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="PlayerControl.h" />
     <ClInclude Include="PlayerZombie.h" />
+    <ClInclude Include="DebagMode.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomParameter.h" />
     <ClInclude Include="SceneBase.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PlayerControl.cpp" />
     <ClCompile Include="PlayerZombie.cpp" />
+    <ClCompile Include="DebagMode.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomParameter.cpp" />
     <ClCompile Include="SceneFactory.cpp" />

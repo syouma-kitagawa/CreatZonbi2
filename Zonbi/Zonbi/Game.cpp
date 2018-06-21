@@ -60,12 +60,14 @@ SceneBase::SCENE_ID Game::Update()
 void Game::Draw() 
 {
 	DirectGraphics::GetpInstance()->StartRender();
+
 	m_GameBackground->Draw();
 	for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
 		(*ite)->Draw();
 	}
 #ifdef DEBUG_RUN
 	DebugDrawHitRect(m_StageObjectManager);
+	DebugPlayerHitRect(m_ZombieManager->GetPlayerZombi());
 #endif
 	DirectGraphics::GetpInstance()->EndRender();
 }

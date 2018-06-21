@@ -2,8 +2,12 @@
 #include"Utility.h"
 #include"DirectGraphics.h"
 
-Human::Human(D3DXVECTOR2* pos, int width, int height): m_Pos(*pos),m_Width(width),m_Height(height),m_BeforePos(m_Pos)
+Human::Human(D3DXVECTOR2* pos, int width, int height, D3DXVECTOR2 pos2[])
+	: m_Pos(*pos),m_Width(width),m_Height(height),m_BeforePos(m_Pos),m_CollisionDir{NON,NON,NON,NON}
 {
+	for (int i = 0; i < 4; i++) {
+		m_TmpPos[i] = pos2[i];
+	}
 	m_pCollision = new Collision();
 	m_pCollision->SetPosition(&m_Pos);
 	m_pCollision->SetSize(&D3DXVECTOR2(m_Width * 2 - m_Width, m_Height * 2 - m_Height));
@@ -33,6 +37,14 @@ Human::Human(D3DXVECTOR2* pos, int width, int height): m_Pos(*pos),m_Width(width
 	m_pBoxCollision.back()->SetSize(&D3DXVECTOR2(m_MiddleRect2.right * 2, m_MiddleRect2.bottom * 2));
 	m_pBoxCollision.back()->SetCollisionId(Collision::BOX);
 	CollisionManager::GetcollisionManager()->AddCollision(m_pBoxCollision.back());
+
+	for (int i = 0; i < 4; i++) {
+		m_pTmpCollision[i] = new Collision();
+		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
+		m_pTmpCollision[i]->SetSize(&D3DXVECTOR2(1, 1));
+		m_pTmpCollision[i]->SetCollisionId(Collision::BOX);
+		CollisionManager::GetcollisionManager()->AddCollision(m_pTmpCollision[i]);
+	}
 }
 
 
@@ -41,6 +53,9 @@ Human::~Human()
 	delete m_pCollision;
 	for (auto ite = m_pBoxCollision.begin(); ite != m_pBoxCollision.end(); ++ite) {
 		delete *ite;
+	}
+	for (int i = 0; i < 4; i++) {
+		delete m_pTmpCollision[i];
 	}
 }
 
@@ -59,7 +74,7 @@ void Human::Draw()
 		HumanDraw[i].x += m_Pos.x;
 		HumanDraw[i].y += m_Pos.y;
 	}
-	int remainder = m_Fcnt % 40;
+	int remainder = m_Fcnt % 30;
 
 	if (m_IsDeath) {
 		for (int i = 0; i < 4; i++) {
@@ -113,41 +128,41 @@ void Human::Draw()
 			{
 			case Direction::UP:
 
-				if (remainder <=19) {
+				if (remainder <= 15) {
 					DirectGraphics::GetpInstance()->Animation(HumanDraw, m_Tu, 4, m_Tv, 1);
 					DirectGraphics::GetpInstance()->Render("Texture/combine.png", HumanDraw);
 				}
-				else if (remainder >= 20 &&remainder <= 39) {
+				else if (remainder >= 16 &&remainder <= 29) {
 					DirectGraphics::GetpInstance()->Animation(HumanDraw, m_Tu, 5, m_Tv, 1);
 					DirectGraphics::GetpInstance()->Render("Texture/combine.png", HumanDraw);
 				}
 				break;
 			case Direction::DOWN:
-				if (remainder <= 19) {
+				if (remainder <= 15) {
 					DirectGraphics::GetpInstance()->Animation(HumanDraw, m_Tu, 1, m_Tv, 1);
 					DirectGraphics::GetpInstance()->Render("Texture/combine.png", HumanDraw);
 				}
-				else if (remainder >= 20 && remainder <= 39) {
+				else if (remainder >= 16 && remainder <= 29) {
 					DirectGraphics::GetpInstance()->Animation(HumanDraw, m_Tu, 2, m_Tv, 1);
 					DirectGraphics::GetpInstance()->Render("Texture/combine.png", HumanDraw);
 				}
 				break;
 			case Direction::RIGHT:
-				if (remainder <= 19) {
+				if (remainder <= 15) {
 					DirectGraphics::GetpInstance()->Animation(HumanDraw, m_Tu, 10, m_Tv, 1);
 					DirectGraphics::GetpInstance()->Render("Texture/combine.png", HumanDraw);
 				}
-				else if (remainder >= 20 && remainder <= 39) {
+				else if (remainder >= 16 && remainder <= 29) {
 					DirectGraphics::GetpInstance()->Animation(HumanDraw, m_Tu, 11, m_Tv, 1);
 					DirectGraphics::GetpInstance()->Render("Texture/combine.png", HumanDraw);
 				}
 				break;
 			case Direction::LEFT:
-				if (remainder <= 19) {
+				if (remainder <= 15) {
 					DirectGraphics::GetpInstance()->Animation(HumanDraw, m_Tu, 7, m_Tv, 1);
 					DirectGraphics::GetpInstance()->Render("Texture/combine.png", HumanDraw);
 				}
-				else if (remainder >= 20 && remainder <= 39) {
+				else if (remainder >= 16 && remainder <= 29) {
 					DirectGraphics::GetpInstance()->Animation(HumanDraw, m_Tu, 8, m_Tv, 1);
 					DirectGraphics::GetpInstance()->Render("Texture/combine.png", HumanDraw);
 				}
@@ -165,7 +180,16 @@ void Human::Draw()
 
 void Human::Update()
 {
-	if (m_pCollision->GetOtherCollisionId() == Collision::ZOMBIE) {
+	m_CollisionPos[0].x = m_Pos.x;
+	m_CollisionPos[0].y = m_Pos.y - m_Speed - m_Height / 2;
+	m_CollisionPos[1].x = m_Pos.x;
+	m_CollisionPos[1].y = m_Pos.y + m_Speed + m_Height / 2;
+	m_CollisionPos[2].x = m_Pos.x + m_Speed + m_Width / 2;
+	m_CollisionPos[2].y = m_Pos.y;
+	m_CollisionPos[3].x = m_Pos.x - m_Speed - m_Width / 2;
+	m_CollisionPos[3].y = m_Pos.y;
+
+	if (m_pCollision->IsSearchOtherCollisionId(m_pCollision->GetOtherCollisionId(), Collision::ZOMBIE)) {
 		m_Hp--;
 		if (m_Hp == 0) {
 			m_IsDeath = true;
@@ -179,248 +203,329 @@ void Human::Update()
 			m_IsRevival = true;
 		}
 	}
-	/*int average = m_Height + m_Width / 2;
-	m_LargestRect.left += m_Pos.x;
-	m_LargestRect.top += m_Pos.y;
-	m_LargestRect.right += m_Pos.x;
-	m_LargestRect.bottom += m_Pos.y;
-	m_SmallRect.left += m_Pos.x;
-	m_SmallRect.top += m_Pos.y;
-	m_SmallRect.right += m_Pos.x;
-	m_SmallRect.bottom += m_Pos.y;
-	m_MiddleRect.left += m_Pos.x;
-	m_MiddleRect.top += m_Pos.y;
-	m_MiddleRect.right += m_Pos.x;
-	m_MiddleRect.bottom += m_Pos.y;
-	m_MiddleRect2.left += m_Pos.x;
-	m_MiddleRect2.top += m_Pos.y;
-	m_MiddleRect2.right += m_Pos.x;
-	m_MiddleRect2.bottom += m_Pos.y;
-	ChangePostion(&m_LargestRect, m_forward, average / 2);
-	ChangePostion(&m_SmallRect, -m_forward, average / 2);
-	D3DXVECTOR2 tmp = m_forward;
-	m_forward.x = tmp.x;
-	m_forward.y = tmp.y;
-	m_forward.x = tmp.y;
-	m_forward.y = tmp.x;
-	ChangePostion(&m_MiddleRect, m_forward, average / 2);
-	m_forward.y * -1.0f;
-	ChangePostion(&m_MiddleRect2, m_forward, average / 2);*/
-	//ChangePostion(&m_MiddleRect, )
-	
-	D3DXVECTOR2 UpRect[4];
-	UpRect[0] = { 0,1.0f };
-	UpRect[1] = { 0,-1.0f };
-	UpRect[2] = { 1.0f, 0 };
-	UpRect[3] = { -1.0,0 };
-	D3DXVECTOR2 RightRect[4];
-	RightRect[0] = { 1.0f,0 };
-	RightRect[1] = { -1.0f,0 };
-	RightRect[2] = { 0, -1.0f };
-	RightRect[3] = { 0,1.0f };
-	D3DXVECTOR2 DownRect[4];
-	DownRect[0] = { 0,-1.0f };
-	DownRect[1] = { 0, 1.0f };
-	DownRect[2] = { -1.0f,0 };
-	DownRect[3] = { 1.0f,0 };
-	D3DXVECTOR2 LeftRect[4];
-	LeftRect[0] = { -1.0f,0 };
-	LeftRect[1] = { 1.0f,0 };
-	LeftRect[2] = { 0,1.0f };
-	LeftRect[3] = { 0,-1.0f };
-	int direction[4];
-	switch (m_Direction)
-	{
-	case CharaObjectBase::UP:
-		ChangePostion(&m_LargestRect, UpRect[0], m_Height / 2 + m_Pos.y);
-		ChangePostion(&m_SmallRect,   UpRect[1], m_Height / 2 + m_Pos.y);
-		ChangePostion(&m_MiddleRect,  UpRect[2], m_Width / 2 + m_Pos.x);
-		ChangePostion(&m_MiddleRect,  UpRect[3], m_Width / 2 + m_Pos.x);
-		direction[0] = UP;
-		direction[1] = DOWN;
-		direction[2] = RIGHT;
-		direction[3] = LEFT;
-		break;
-	case CharaObjectBase::RIGHT:
-		ChangePostion(&m_LargestRect, RightRect[0], m_Width / 2 + m_Pos.x);
-		ChangePostion(&m_SmallRect, RightRect[1], m_Width / 2 + m_Pos.x);
-		ChangePostion(&m_MiddleRect, RightRect[2], m_Height / 2 + m_Pos.y);
-		ChangePostion(&m_MiddleRect, RightRect[3], m_Height / 2 + m_Pos.y);
-		direction[0] = RIGHT;
-		direction[1] = LEFT;
-		direction[2] = DOWN;
-		direction[3] = UP;
-		break;
-	case CharaObjectBase::DOWN:
-		ChangePostion(&m_LargestRect, DownRect[0], m_Height / 2 + m_Pos.y);
-		ChangePostion(&m_SmallRect, DownRect[1], m_Height / 2 + m_Pos.y);
-		ChangePostion(&m_MiddleRect, DownRect[2], m_Width / 2 + m_Pos.x);
-		ChangePostion(&m_MiddleRect, DownRect[3], m_Width / 2 + m_Pos.x);
-		direction[0] = DOWN;
-		direction[1] = UP;
-		direction[2] = LEFT;
-		direction[3] = RIGHT;
-		break;
-	case CharaObjectBase::LEFT:
-		ChangePostion(&m_LargestRect, LeftRect[0], m_Width / 2 + m_Pos.x);
-		ChangePostion(&m_SmallRect, LeftRect[1], m_Width / 2 + m_Pos.x);
-		ChangePostion(&m_MiddleRect, LeftRect[2], m_Height / 2 + m_Pos.y);
-		ChangePostion(&m_MiddleRect, LeftRect[3], m_Height / 2 + m_Pos.y);
-		direction[0] = LEFT;
-		direction[1] = RIGHT;
-		direction[2] = UP;
-		direction[3] = DOWN;
-		break;
-	}
+	m_BeforePos = m_Pos;
 
-	bool collision[4]{ false,false,false,false };
-	int collisioncnt = 0;
-	for (int i = 0; i < m_pBoxCollision.size();i++) {
-		if (m_pBoxCollision[i]->GetOtherCollisionId() == Collision::ZOMBIE) {
-			collision[i] = true;
-			collisioncnt++;
-		}
-	}
-	if (collisioncnt == 1) {
-		for (int i = 0; i < 4; i++) {
-			if (collision[i]) {
-					switch (direction[i])
-					{
-					case UP:
-						 {
-							m_Pos.y += -m_Speed;
-							m_Direction = DOWN;;
-						}
-						break;
-					case DOWN:
-						if (!DirectionCheck(DOWN)) {
-							m_Pos.y += m_Speed;
-							m_Direction = UP;
-						}
-						break;
-					case RIGHT:
-						if (!DirectionCheck(RIGHT)) {
-							m_Pos.x += -m_Speed;
-							m_Direction = LEFT;
-						}
-						break;
-					case LEFT:
-						if (!DirectionCheck(LEFT)) {
-							m_Pos.x += m_Speed;
-							m_Direction = RIGHT;
-						}
-						break;
-				}
-			}
-		}
-	}
-	else if (collisioncnt == 2) {
-		for (int i = 0; i < 4; i++) {
-			if (!collision[i]) {
-				switch (direction[i])
-				{
-				case UP:
-					if (!DirectionCheck(UP)) {
-						m_Pos.y += m_Speed;
-						m_Direction = UP;
-					}
-					break;
-				case DOWN:
-					if (!DirectionCheck(DOWN)) {
-						m_Pos.y += -m_Speed;
-						m_Direction = DOWN;
-					}
-					break;
-				case RIGHT:
-					if (!DirectionCheck(RIGHT)) {
-						m_Pos.x += m_Speed;
-						m_Direction = RIGHT;
-					}
-					break;
-				case LEFT:
-					if (!DirectionCheck(LEFT)) {
-						m_Pos.x += -m_Speed;
-						m_Direction = LEFT;
-					}
-					break;
-				}
-			}
-		}
-	}
-	else if (collisioncnt == 3) {
-		for (int i = 0; i < 4; i++) {
-			if (!collision[i]) {
-				switch (direction[i])
-				{
-				case UP:
-					if (!DirectionCheck(UP)) {
-						m_Pos.y += m_Speed;
-						m_Direction = UP;
-					}
-					break;
-				case DOWN:
-					if (!DirectionCheck(DOWN)) {
-						m_Pos.y += -m_Speed;
-						m_Direction = DOWN;
-					}
-					break;
-				case RIGHT:
-					if (!DirectionCheck(RIGHT)) {
-						m_Pos.x += m_Speed;
-						m_Direction = RIGHT;
-					}
-					break;
-				case LEFT:
-					if (!DirectionCheck(LEFT)) {
-						m_Pos.x += -m_Speed;
-						m_Direction = LEFT;
-					}
-					break;
-				}
-			}
-		}
-	}
-	else if (collisioncnt == 4) {
-
-	}
-	if (m_pCollision->GetOtherCollisionId() == Collision::OBJECT) {
-		switch (m_Direction)
-		{
-		case UP:
-			m_Pos.y += - m_Speed;
-			m_Direction = UP;
-			m_CollisionDir[m_CollisionDircnt] = UP;
-			m_CollisionDircnt++;
-			break;
-		case DOWN:
-			m_Pos.y += m_Speed;
-			m_Direction = DOWN;
-			m_CollisionDir[m_CollisionDircnt] = DOWN;
-			m_CollisionDircnt++;
-			break;
-		case RIGHT:
-			m_Pos.x += -m_Speed;
-			m_Direction = RIGHT;
-			m_CollisionDir[m_CollisionDircnt] = RIGHT;
-			m_CollisionDircnt++;
-			break;
-		case LEFT:
+	if (!IsTmpFlg[0]) {
+		if (m_Pos.x < m_TmpPos[0].x) {
 			m_Pos.x += m_Speed;
-			m_Direction = LEFT;
-			m_CollisionDir[m_CollisionDircnt] = LEFT;
-			break;
+		}
+		else if (m_Pos.x > m_TmpPos[0].x) {
+			m_Pos.x += -m_Speed;
+		}
+		else if (m_Pos.y < m_TmpPos[0].y) {
+			m_Pos.y += m_Speed;
+		}
+		else if (m_Pos.y > m_TmpPos[0].y) {
+			m_Pos.y += -m_Speed;
+		}
+		if (m_Pos.x <= m_TmpPos[0].x + 10.f
+			&&m_Pos.x >= m_TmpPos[0].x - 10.f
+			&&m_Pos.y <= m_TmpPos[0].y + 10.f
+			&&m_Pos.y >= m_TmpPos[0].y - 10.f) {
+			IsTmpFlg[0] = true;
 		}
 	}
-		m_pCollision->SetPosition(&m_Pos);
-	for (auto ite = m_pBoxCollision.begin(); ite != m_pBoxCollision.end(); ++ite) {
-		(*ite)->SetPosition(&m_Pos);
+	else if (!IsTmpFlg[1] && IsTmpFlg[0]) {
+		if (m_Pos.x < m_TmpPos[1].x) {
+			m_Pos.x += m_Speed;
+		}
+		else if (m_Pos.x > m_TmpPos[1].x) {
+			m_Pos.x += - m_Speed;
+		}
+		else if (m_Pos.y < m_TmpPos[1].y) {
+			m_Pos.y += m_Speed;
+		}
+		else if (m_Pos.y > m_TmpPos[1].y) {
+			m_Pos.y += - m_Speed;
+		}
+		if (m_Pos.x <= m_TmpPos[1].x + 10.f
+			&&m_Pos.x >= m_TmpPos[1].x - 10.f
+			&&m_Pos.y <= m_TmpPos[1].y + 10.f
+			&&m_Pos.y >= m_TmpPos[1].y - 10.f) {
+			IsTmpFlg[1] = true;
+		}
 	}
+	else if (!IsTmpFlg[2] && IsTmpFlg[0] && IsTmpFlg[1]) {
+		if (m_Pos.x < m_TmpPos[2].x) {
+			m_Pos.x += m_Speed;
+		}
+		else if (m_Pos.x > m_TmpPos[2].x) {
+			m_Pos.x += - m_Speed;
+		}
+		else if (m_Pos.y < m_TmpPos[2].y) {
+			m_Pos.y += m_Speed;
+		}
+		else if (m_Pos.y > m_TmpPos[2].y) {
+			m_Pos.y += - m_Speed;
+		}
+		if (m_Pos.x <= m_TmpPos[2].x + 10.f
+			&&m_Pos.x >= m_TmpPos[2].x - 10.f
+			&&m_Pos.y <= m_TmpPos[2].y + 10.f
+			&&m_Pos.y >= m_TmpPos[2].y - 10.f) {
+			IsTmpFlg[2] = true;
+		}
+	}
+	else if (!IsTmpFlg[3] && IsTmpFlg[0] && IsTmpFlg[1] && IsTmpFlg[2]) {
+		if (m_Pos.x < m_TmpPos[3].x) {
+			m_Pos.x += m_Speed;
+		}
+		else if (m_Pos.x > m_TmpPos[3].x) {
+			m_Pos.x += -m_Speed;
+		}
+		else if (m_Pos.y < m_TmpPos[3].y) {
+			m_Pos.y += m_Speed;
+		}
+		else if (m_Pos.y > m_TmpPos[3].y) {
+			m_Pos.y += -m_Speed;
+		}
+		if (m_Pos.x <= m_TmpPos[3].x + 10.f
+			&&m_Pos.x >= m_TmpPos[3].x - 10.f
+			&&m_Pos.y <= m_TmpPos[3].y + 10.f
+			&&m_Pos.y >= m_TmpPos[3].y - 10.f) {
+			for (int i = 0; i < 4; i++) {
+				IsTmpFlg[i] = false;
+			}
+		}
+	}
+	
+	//D3DXVECTOR2 UpDir[4];
+	//UpDir[0] = { 0,-1.0f };
+	//UpDir[1] = { 0,1.0f };
+	//UpDir[2] = { 1.0f, 0 };
+	//UpDir[3] = { -1.0,0 };
+	//D3DXVECTOR2 RightDir[4];
+	//RightDir[0] = { 1.0f,0 };
+	//RightDir[1] = { -1.0f,0 };
+	//RightDir[2] = { 0, -1.0f };
+	//RightDir[3] = { 0,1.0f };
+	//D3DXVECTOR2 DownDir[4];
+	//DownDir[0] = { 0,1.0f };
+	//DownDir[1] = { 0,- 1.0f };
+	//DownDir[2] = { -1.0f,0 };
+	//DownDir[3] = { 1.0f,0 };
+	//D3DXVECTOR2 LeftDir[4];
+	//LeftDir[0] = { -1.0f,0 };
+	//LeftDir[1] = { 1.0f,0 };
+	//LeftDir[2] = { 0,-1.0f };
+	//LeftDir[3] = { 0,1.0f };
+	//int direction[4];
+	//switch (m_Direction)
+	//{
+	//case CharaObjectBase::UP:
+	//	ChangePostion(&m_LargestRect, UpDir[0], m_Height / 2, m_Pos);
+	//	ChangePostion(&m_SmallRect,   UpDir[1], m_Height / 2, m_Pos);
+	//	ChangePostion(&m_MiddleRect,  UpDir[2], m_Width / 2, m_Pos);
+	//	ChangePostion(&m_MiddleRect2,  UpDir[3], m_Width / 2, m_Pos);
+	//	direction[0] = UP;
+	//	direction[1] = DOWN;
+	//	direction[2] = RIGHT;
+	//	direction[3] = LEFT;
+	//	break;
+	//case CharaObjectBase::RIGHT:
+	//	ChangePostion(&m_LargestRect, RightDir[0], m_Width / 2, m_Pos);
+	//	ChangePostion(&m_SmallRect,   RightDir[1], m_Width / 2, m_Pos);
+	//	ChangePostion(&m_MiddleRect,  RightDir[2], m_Height / 2, m_Pos);
+	//	ChangePostion(&m_MiddleRect2,  RightDir[3], m_Height / 2, m_Pos);
+	//	direction[0] = RIGHT;
+	//	direction[1] = LEFT;
+	//	direction[2] = UP;
+	//	direction[3] = DOWN;
+	//	break;
+	//case CharaObjectBase::DOWN:
+	//	ChangePostion(&m_LargestRect, DownDir[0], m_Height / 2, m_Pos);
+	//	ChangePostion(&m_SmallRect,   DownDir[1], m_Height / 2, m_Pos);
+	//	ChangePostion(&m_MiddleRect,  DownDir[2], m_Width / 2, m_Pos);
+	//	ChangePostion(&m_MiddleRect2,  DownDir[3], m_Width / 2, m_Pos);
+	//	direction[0] = DOWN;
+	//	direction[1] = UP;
+	//	direction[2] = LEFT;
+	//	direction[3] = RIGHT;
+	//	break;
+	//case CharaObjectBase::LEFT:
+	//	ChangePostion(&m_LargestRect, LeftDir[0], m_Width / 2, m_Pos);
+	//	ChangePostion(&m_SmallRect,   LeftDir[1], m_Width / 2, m_Pos);
+	//	ChangePostion(&m_MiddleRect,  LeftDir[2], m_Height / 2, m_Pos);
+	//	ChangePostion(&m_MiddleRect2,  LeftDir[3], m_Height / 2, m_Pos);
+	//	direction[0] = LEFT;
+	//	direction[1] = RIGHT;
+	//	direction[2] = UP;
+	//	direction[3] = DOWN;
+	//	break;
+	//}
+	//m_pBoxCollision[0]->SetPosition(&D3DXVECTOR2(50 + m_LargestRect.left, 50 + m_LargestRect.top));
+	//m_pBoxCollision[1]->SetPosition(&D3DXVECTOR2(50 + m_SmallRect.left, 50 + m_SmallRect.top));
+	//m_pBoxCollision[2]->SetPosition(&D3DXVECTOR2(50 + m_MiddleRect.left, 50 + m_MiddleRect.top));
+	//m_pBoxCollision[3]->SetPosition(&D3DXVECTOR2(50 + m_MiddleRect2.left, 50 + m_MiddleRect2.top));
 
+	//if (!m_IsDeath) {
+	//	bool collision[4]{ false,false,false,false };
+	//	int collisioncnt = 0;
+	//	//矩形四つを見ている
+	//	for (int i = 0; i < m_pBoxCollision.size(); i++) {
+	//		//矩形の当たったものにゾンビがいるかどうか
+	//		if (m_pBoxCollision[i]->IsSearchOtherCollisionId(m_pBoxCollision[i]->GetOtherCollisionId(), Collision::ZOMBIE)) {
+	//			collision[i] = true;
+	//			collisioncnt++;
+	//		}
+	//	}
+	//	if (collisioncnt == 1) {
+	//		for (int i = 0; i < 4; i++) {
+	//			if (!collision[i] && m_BeforePos == m_Pos) {
+	//				switch (direction[i])
+	//				{
+	//				case UP:
+	//					if (!DirectionCheck(UP)) {
+	//						m_BeforePos = m_Pos;
+	//						m_Pos.y += -m_Speed;
+	//						m_Direction = UP;
+	//						ResetArray();
+	//						break;
+	//					}
+	//					else {
+	//						continue;
+	//					}
+	//				case DOWN:
+	//					if (!DirectionCheck(DOWN)) {
+	//						m_BeforePos = m_Pos;
+	//						m_Pos.y += m_Speed;
+	//						m_Direction = DOWN;
+	//						ResetArray();
+	//						break;
+	//					}
+	//					else {
+	//						continue;
+	//					}
+	//				case RIGHT:
+	//					if (!DirectionCheck(RIGHT)) {
+	//						m_BeforePos = m_Pos;
+	//						m_Pos.x += -m_Speed;
+	//						m_Direction = RIGHT;
+	//						ResetArray();
+	//						break;
+	//					}
+	//					else {
+	//						continue;
+	//					}
+	//				case LEFT:
+	//					if (!DirectionCheck(LEFT)) {
+	//						m_BeforePos = m_Pos;
+	//						m_Pos.x += m_Speed;
+	//						m_Direction = LEFT;
+	//						ResetArray();
+	//						break;
+	//					}
+	//					else {
+	//						continue;
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
+	//	else if (collisioncnt == 2) {
+	//		for (int i = 0; i < 4; i++) {
+	//			if (!collision[i]) {
+	//				switch (direction[i])
+	//				{
+	//				case UP:
+	//					if (!DirectionCheck(UP)) {
+	//						m_Pos.y += m_Speed;
+	//						m_Direction = UP;
+	//						ResetArray();
+	//						break;
+	//					}
+	//					else {
+	//						continue;
+	//					}
+	//				case DOWN:
+	//					if (!DirectionCheck(DOWN)) {
+	//						m_Pos.y += -m_Speed;
+	//						m_Direction = DOWN;
+	//						ResetArray();
+	//						break;
+	//					}
+	//					else {
+	//						continue;
+	//					}
+	//				case RIGHT:
+	//					if (!DirectionCheck(RIGHT)) {
+	//						m_Pos.x += m_Speed;
+	//						m_Direction = RIGHT;
+	//						ResetArray();
+	//						break;
+	//					}
+	//					else {
+	//						continue;
+	//					}
+	//				case LEFT:
+	//					if (!DirectionCheck(LEFT)) {
+	//						m_Pos.x += -m_Speed;
+	//						m_Direction = LEFT;
+	//						ResetArray();
+	//						break;
+	//					}
+	//					else {
+	//						continue;
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
+	//	else if (collisioncnt == 3) {
+	//		for (int i = 0; i < 4; i++) {
+	//			if (!collision[i]) {
+	//				switch (direction[i])
+	//				{
+	//				case UP:
+	//					if (!DirectionCheck(UP)) {
+	//						m_Pos.y += m_Speed;
+	//						m_Direction = UP;
+	//						ResetArray();
+	//						break;
+	//					}
+	//				case DOWN:
+	//					if (!DirectionCheck(DOWN)) {
+	//						m_Pos.y += -m_Speed;
+	//						m_Direction = DOWN;
+	//						ResetArray();
+	//						break;
+	//					}
+	//				case RIGHT:
+	//					if (!DirectionCheck(RIGHT)) {
+	//						m_Pos.x += m_Speed;
+	//						m_Direction = RIGHT;
+	//						ResetArray();
+	//						break;
+	//					}
+	//				case LEFT:
+	//					if (!DirectionCheck(LEFT)) {
+	//						m_Pos.x += -m_Speed;
+	//						m_Direction = LEFT;
+	//						ResetArray();
+	//						break;
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
+	//	else if (collisioncnt == 4) {
+
+	//	}
+	//}
+
+	//for (int i = 0; i < 4; i++) {
+	//	m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
+	//}
+	m_pCollision->SetPosition(&m_Pos);
+	//m_LargestRect = { -50,-50,50,50 };
+	//m_SmallRect = { -12,-12,12,12 };
+	//m_MiddleRect = { -25,-25,25,25 };
+	//m_MiddleRect2 = { -25,-25,25,25 };
 }
 
- void Human::ChangePostion(RECT* rect, const D3DXVECTOR2& direction, float range)
+void Human::ChangePostion(RECT* rect, const D3DXVECTOR2& direction, float range, const D3DXVECTOR2& pos)
 {
 	D3DXVECTOR2 tmp = direction * range;
+	tmp += pos;
 	rect->left += tmp.x;
 	rect->top += tmp.y;
 	rect->bottom += tmp.y;
@@ -429,11 +534,29 @@ void Human::Update()
 
 bool Human::DirectionCheck(Direction direction)
  {
-	for (int i = 0; i < 4; i++) {
-		m_CollisionDir[i] = direction;
-		return true;
+	switch (direction)
+	{
+	case CharaObjectBase::UP:
+		if (m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+			return true;
+		}
+		return false;
+	case CharaObjectBase::RIGHT:
+		if (m_pTmpCollision[2]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+			return true;
+		}
+		return false;
+	case CharaObjectBase::DOWN:
+		if (m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+			return true;
+		}
+		return false;
+	case CharaObjectBase::LEFT:
+		if (m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+			return true;
+		}
+		return false;
 	}
-	return false;
  }
 
 void Human::ResetArray() {

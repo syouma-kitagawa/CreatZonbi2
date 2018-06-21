@@ -4,6 +4,7 @@
 #include"ZombieManager.h"
 #include"HumanParameter.h"
 #include"ZombieParameter.h"
+#include"CollisionManager.h"
 
 
 HumanManager::HumanManager(ZombieManager* manager) : m_pZombieManager(manager)
@@ -15,7 +16,11 @@ HumanManager::HumanManager(ZombieManager* manager) : m_pZombieManager(manager)
 		D3DXVECTOR2 vec = param.GetHumanParam(i)->pos;
 		int width = param.GetHumanParam(i)->width;
 		int height = param.GetHumanParam(i)->height;
-		m_pHuman[i] = new Human(&vec, width, height);
+		D3DXVECTOR2 pos[4];
+		for (int j = 0; j < 4; j++) {
+			pos[j] = param.GetHumanParam(i)->tmpPos[j];
+		}
+		m_pHuman[i] = new Human(&vec, width, height,pos);
 	}
 }
 
@@ -35,6 +40,7 @@ void HumanManager::Update()
 		if ((*ite)->IsRevival()){
 			//IsDeth‚ªtrue‚ÌHuman‚ðÁ‚µ‚ÄZonbi‚É’Ç‰Á
 			ZombieParameter::GetInstance().LoadZombie();
+			CollisionManager::GetcollisionManager()->RemoveCollision((*ite)->GetCollision());
 			float speed = ZombieParameter::GetInstance().GetZombieParam()->speed;
 			int width = ZombieParameter::GetInstance().GetZombieParam()->width;
 			int height = ZombieParameter::GetInstance().GetZombieParam()->height;

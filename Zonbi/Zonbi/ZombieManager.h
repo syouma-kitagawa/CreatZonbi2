@@ -19,6 +19,13 @@ public:
 	virtual void Update();
 
 	void ZombieAdd(D3DXVECTOR2* pos, float speed, int width, int height);
+
+#ifdef DEBUG_RUN
+	PlayerZombie *GetPlayerZombi()
+	{
+		return m_pPlayerZombie;
+	}
+#endif
 private:
 	std::vector<Zombie*> m_pZombie;
 	PlayerZombie* m_pPlayerZombie;

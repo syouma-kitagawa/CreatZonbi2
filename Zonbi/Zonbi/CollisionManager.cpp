@@ -14,7 +14,7 @@ void CollisionManager::CreateCollisionManager()
 void CollisionManager::Update()
 {
 	for (int i = 0; i < m_pCollision.size(); i++) {
-		m_pCollision[i]->InitializationOtherCoolisionI();
+		m_pCollision[i]->InitializationOtherCoolisionId();
 	}
 	D3DXVECTOR2 Pos;
 	D3DXVECTOR2 Size;
@@ -32,11 +32,13 @@ void CollisionManager::Update()
 					Pos.x + Size.x / 2 > Pos2.x - Size2.x / 2) {
 					if (Pos.y - Size.y / 2 < Pos2.y + Size2.y / 2 &&
 						Pos.y + Size.y / 2 > Pos2.y - Size2.y / 2) {
-						if (m_pCollision[i]->GetOtherCollisionId() == Collision::NON) {
-							m_pCollision[i]->SetOtherCoolisionId(m_pCollision[j]->GetCollisionId());
+						m_pCollision[i]->AddOtherCoolisionId(m_pCollision[j]->GetCollisionId());
+						m_pCollision[j]->AddOtherCoolisionId(m_pCollision[i]->GetCollisionId());
+						if (m_pCollision[i]->GetOtherCollisionId().back() == Collision::NON) {
+							m_pCollision[i]->GetOtherCollisionId().pop_back();
 						}
-						if (m_pCollision[j]->GetOtherCollisionId() == Collision::NON) {
-							m_pCollision[j]->SetOtherCoolisionId(m_pCollision[i]->GetCollisionId());
+						if (m_pCollision[j]->GetOtherCollisionId().back() == Collision::NON) {
+							m_pCollision[j]->GetOtherCollisionId().pop_back();
 						}
 					}
 				}
