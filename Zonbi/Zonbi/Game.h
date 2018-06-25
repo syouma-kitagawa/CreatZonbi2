@@ -15,6 +15,7 @@ class PlayerControl;
 class StageManager;
 class GameBackground;
 class TimeLimit;
+class Fader;
 
 class Game : public SceneBase{
 public:
@@ -23,6 +24,7 @@ public:
 	void Draw();
 	SCENE_ID Update();
 private:
+	bool m_first = true;
 	bool m_IsMusic = false;
 	void SetRetSceneId(SceneBase::SCENE_ID sceneId) { retId = sceneId; }
 	std::vector<ObjectBase*> m_ObjectBase;
@@ -32,6 +34,7 @@ private:
 	StageManager* m_StageObjectManager;
 	GameBackground* m_GameBackground;
 	TimeLimit* m_TimeLimit;
+	Fader* m_Fader;
 	SceneBase::SCENE_ID retId = SceneBase::SCENE_ID::MAIN;
 };
 

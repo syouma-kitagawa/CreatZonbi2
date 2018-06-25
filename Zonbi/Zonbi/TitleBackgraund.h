@@ -10,7 +10,8 @@ class TitleBackgraund : public ObjectBase{
 public:
 	TitleBackgraund();
 	virtual ~TitleBackgraund();
-	virtual void Update(){};
 	virtual void Draw();
+	virtual void Update() {};
+private:
 };
 #endif

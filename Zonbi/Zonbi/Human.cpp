@@ -205,321 +205,321 @@ void Human::Update()
 	}
 	m_BeforePos = m_Pos;
 
-	if (!IsTmpFlg[0]) {
-		if (m_Pos.x < m_TmpPos[0].x) {
-			m_Pos.x += m_Speed;
-		}
-		else if (m_Pos.x > m_TmpPos[0].x) {
-			m_Pos.x += -m_Speed;
-		}
-		else if (m_Pos.y < m_TmpPos[0].y) {
-			m_Pos.y += m_Speed;
-		}
-		else if (m_Pos.y > m_TmpPos[0].y) {
-			m_Pos.y += -m_Speed;
-		}
-		if (m_Pos.x <= m_TmpPos[0].x + 10.f
-			&&m_Pos.x >= m_TmpPos[0].x - 10.f
-			&&m_Pos.y <= m_TmpPos[0].y + 10.f
-			&&m_Pos.y >= m_TmpPos[0].y - 10.f) {
-			IsTmpFlg[0] = true;
-		}
+	//if (!IsTmpFlg[0]) {
+	//	if (m_Pos.x < m_TmpPos[0].x) {
+	//		m_Pos.x += m_Speed;
+	//	}
+	//	else if (m_Pos.x > m_TmpPos[0].x) {
+	//		m_Pos.x += -m_Speed;
+	//	}
+	//	else if (m_Pos.y < m_TmpPos[0].y) {
+	//		m_Pos.y += m_Speed;
+	//	}
+	//	else if (m_Pos.y > m_TmpPos[0].y) {
+	//		m_Pos.y += -m_Speed;
+	//	}
+	//	if (m_Pos.x <= m_TmpPos[0].x + 10.f
+	//		&&m_Pos.x >= m_TmpPos[0].x - 10.f
+	//		&&m_Pos.y <= m_TmpPos[0].y + 10.f
+	//		&&m_Pos.y >= m_TmpPos[0].y - 10.f) {
+	//		IsTmpFlg[0] = true;
+	//	}
+	//}
+	//else if (!IsTmpFlg[1] && IsTmpFlg[0]) {
+	//	if (m_Pos.x < m_TmpPos[1].x) {
+	//		m_Pos.x += m_Speed;
+	//	}
+	//	else if (m_Pos.x > m_TmpPos[1].x) {
+	//		m_Pos.x += - m_Speed;
+	//	}
+	//	else if (m_Pos.y < m_TmpPos[1].y) {
+	//		m_Pos.y += m_Speed;
+	//	}
+	//	else if (m_Pos.y > m_TmpPos[1].y) {
+	//		m_Pos.y += - m_Speed;
+	//	}
+	//	if (m_Pos.x <= m_TmpPos[1].x + 10.f
+	//		&&m_Pos.x >= m_TmpPos[1].x - 10.f
+	//		&&m_Pos.y <= m_TmpPos[1].y + 10.f
+	//		&&m_Pos.y >= m_TmpPos[1].y - 10.f) {
+	//		IsTmpFlg[1] = true;
+	//	}
+	//}
+	//else if (!IsTmpFlg[2] && IsTmpFlg[0] && IsTmpFlg[1]) {
+	//	if (m_Pos.x < m_TmpPos[2].x) {
+	//		m_Pos.x += m_Speed;
+	//	}
+	//	else if (m_Pos.x > m_TmpPos[2].x) {
+	//		m_Pos.x += - m_Speed;
+	//	}
+	//	else if (m_Pos.y < m_TmpPos[2].y) {
+	//		m_Pos.y += m_Speed;
+	//	}
+	//	else if (m_Pos.y > m_TmpPos[2].y) {
+	//		m_Pos.y += - m_Speed;
+	//	}
+	//	if (m_Pos.x <= m_TmpPos[2].x + 10.f
+	//		&&m_Pos.x >= m_TmpPos[2].x - 10.f
+	//		&&m_Pos.y <= m_TmpPos[2].y + 10.f
+	//		&&m_Pos.y >= m_TmpPos[2].y - 10.f) {
+	//		IsTmpFlg[2] = true;
+	//	}
+	//}
+	//else if (!IsTmpFlg[3] && IsTmpFlg[0] && IsTmpFlg[1] && IsTmpFlg[2]) {
+	//	if (m_Pos.x < m_TmpPos[3].x) {
+	//		m_Pos.x += m_Speed;
+	//	}
+	//	else if (m_Pos.x > m_TmpPos[3].x) {
+	//		m_Pos.x += -m_Speed;
+	//	}
+	//	else if (m_Pos.y < m_TmpPos[3].y) {
+	//		m_Pos.y += m_Speed;
+	//	}
+	//	else if (m_Pos.y > m_TmpPos[3].y) {
+	//		m_Pos.y += -m_Speed;
+	//	}
+	//	if (m_Pos.x <= m_TmpPos[3].x + 10.f
+	//		&&m_Pos.x >= m_TmpPos[3].x - 10.f
+	//		&&m_Pos.y <= m_TmpPos[3].y + 10.f
+	//		&&m_Pos.y >= m_TmpPos[3].y - 10.f) {
+	//		for (int i = 0; i < 4; i++) {
+	//			IsTmpFlg[i] = false;
+	//		}
+	//	}
+	//}
+	//
+	D3DXVECTOR2 UpDir[4];
+	UpDir[0] = { 0,-1.0f };
+	UpDir[1] = { 0,1.0f };
+	UpDir[2] = { 1.0f, 0 };
+	UpDir[3] = { -1.0,0 };
+	D3DXVECTOR2 RightDir[4];
+	RightDir[0] = { 1.0f,0 };
+	RightDir[1] = { -1.0f,0 };
+	RightDir[2] = { 0, -1.0f };
+	RightDir[3] = { 0,1.0f };
+	D3DXVECTOR2 DownDir[4];
+	DownDir[0] = { 0,1.0f };
+	DownDir[1] = { 0,- 1.0f };
+	DownDir[2] = { -1.0f,0 };
+	DownDir[3] = { 1.0f,0 };
+	D3DXVECTOR2 LeftDir[4];
+	LeftDir[0] = { -1.0f,0 };
+	LeftDir[1] = { 1.0f,0 };
+	LeftDir[2] = { 0,-1.0f };
+	LeftDir[3] = { 0,1.0f };
+	int direction[4];
+	switch (m_Direction)
+	{
+	case CharaObjectBase::UP:
+		ChangePostion(&m_LargestRect, UpDir[0], m_Height / 2, m_Pos);
+		ChangePostion(&m_SmallRect,   UpDir[1], m_Height / 2, m_Pos);
+		ChangePostion(&m_MiddleRect,  UpDir[2], m_Width / 2, m_Pos);
+		ChangePostion(&m_MiddleRect2,  UpDir[3], m_Width / 2, m_Pos);
+		direction[0] = UP;
+		direction[1] = DOWN;
+		direction[2] = RIGHT;
+		direction[3] = LEFT;
+		break;
+	case CharaObjectBase::RIGHT:
+		ChangePostion(&m_LargestRect, RightDir[0], m_Width / 2, m_Pos);
+		ChangePostion(&m_SmallRect,   RightDir[1], m_Width / 2, m_Pos);
+		ChangePostion(&m_MiddleRect,  RightDir[2], m_Height / 2, m_Pos);
+		ChangePostion(&m_MiddleRect2,  RightDir[3], m_Height / 2, m_Pos);
+		direction[0] = RIGHT;
+		direction[1] = LEFT;
+		direction[2] = UP;
+		direction[3] = DOWN;
+		break;
+	case CharaObjectBase::DOWN:
+		ChangePostion(&m_LargestRect, DownDir[0], m_Height / 2, m_Pos);
+		ChangePostion(&m_SmallRect,   DownDir[1], m_Height / 2, m_Pos);
+		ChangePostion(&m_MiddleRect,  DownDir[2], m_Width / 2, m_Pos);
+		ChangePostion(&m_MiddleRect2,  DownDir[3], m_Width / 2, m_Pos);
+		direction[0] = DOWN;
+		direction[1] = UP;
+		direction[2] = LEFT;
+		direction[3] = RIGHT;
+		break;
+	case CharaObjectBase::LEFT:
+		ChangePostion(&m_LargestRect, LeftDir[0], m_Width / 2, m_Pos);
+		ChangePostion(&m_SmallRect,   LeftDir[1], m_Width / 2, m_Pos);
+		ChangePostion(&m_MiddleRect,  LeftDir[2], m_Height / 2, m_Pos);
+		ChangePostion(&m_MiddleRect2,  LeftDir[3], m_Height / 2, m_Pos);
+		direction[0] = LEFT;
+		direction[1] = RIGHT;
+		direction[2] = UP;
+		direction[3] = DOWN;
+		break;
 	}
-	else if (!IsTmpFlg[1] && IsTmpFlg[0]) {
-		if (m_Pos.x < m_TmpPos[1].x) {
-			m_Pos.x += m_Speed;
-		}
-		else if (m_Pos.x > m_TmpPos[1].x) {
-			m_Pos.x += - m_Speed;
-		}
-		else if (m_Pos.y < m_TmpPos[1].y) {
-			m_Pos.y += m_Speed;
-		}
-		else if (m_Pos.y > m_TmpPos[1].y) {
-			m_Pos.y += - m_Speed;
-		}
-		if (m_Pos.x <= m_TmpPos[1].x + 10.f
-			&&m_Pos.x >= m_TmpPos[1].x - 10.f
-			&&m_Pos.y <= m_TmpPos[1].y + 10.f
-			&&m_Pos.y >= m_TmpPos[1].y - 10.f) {
-			IsTmpFlg[1] = true;
-		}
-	}
-	else if (!IsTmpFlg[2] && IsTmpFlg[0] && IsTmpFlg[1]) {
-		if (m_Pos.x < m_TmpPos[2].x) {
-			m_Pos.x += m_Speed;
-		}
-		else if (m_Pos.x > m_TmpPos[2].x) {
-			m_Pos.x += - m_Speed;
-		}
-		else if (m_Pos.y < m_TmpPos[2].y) {
-			m_Pos.y += m_Speed;
-		}
-		else if (m_Pos.y > m_TmpPos[2].y) {
-			m_Pos.y += - m_Speed;
-		}
-		if (m_Pos.x <= m_TmpPos[2].x + 10.f
-			&&m_Pos.x >= m_TmpPos[2].x - 10.f
-			&&m_Pos.y <= m_TmpPos[2].y + 10.f
-			&&m_Pos.y >= m_TmpPos[2].y - 10.f) {
-			IsTmpFlg[2] = true;
-		}
-	}
-	else if (!IsTmpFlg[3] && IsTmpFlg[0] && IsTmpFlg[1] && IsTmpFlg[2]) {
-		if (m_Pos.x < m_TmpPos[3].x) {
-			m_Pos.x += m_Speed;
-		}
-		else if (m_Pos.x > m_TmpPos[3].x) {
-			m_Pos.x += -m_Speed;
-		}
-		else if (m_Pos.y < m_TmpPos[3].y) {
-			m_Pos.y += m_Speed;
-		}
-		else if (m_Pos.y > m_TmpPos[3].y) {
-			m_Pos.y += -m_Speed;
-		}
-		if (m_Pos.x <= m_TmpPos[3].x + 10.f
-			&&m_Pos.x >= m_TmpPos[3].x - 10.f
-			&&m_Pos.y <= m_TmpPos[3].y + 10.f
-			&&m_Pos.y >= m_TmpPos[3].y - 10.f) {
-			for (int i = 0; i < 4; i++) {
-				IsTmpFlg[i] = false;
+	m_pBoxCollision[0]->SetPosition(&D3DXVECTOR2(50 + m_LargestRect.left, 50 + m_LargestRect.top));
+	m_pBoxCollision[1]->SetPosition(&D3DXVECTOR2(50 + m_SmallRect.left, 50 + m_SmallRect.top));
+	m_pBoxCollision[2]->SetPosition(&D3DXVECTOR2(50 + m_MiddleRect.left, 50 + m_MiddleRect.top));
+	m_pBoxCollision[3]->SetPosition(&D3DXVECTOR2(50 + m_MiddleRect2.left, 50 + m_MiddleRect2.top));
+
+	if (!m_IsDeath) {
+		bool collision[4]{ false,false,false,false };
+		int collisioncnt = 0;
+		//矩形四つを見ている
+		for (int i = 0; i < m_pBoxCollision.size(); i++) {
+			//矩形の当たったものにゾンビがいるかどうか
+			if (m_pBoxCollision[i]->IsSearchOtherCollisionId(m_pBoxCollision[i]->GetOtherCollisionId(), Collision::ZOMBIE)) {
+				collision[i] = true;
+				collisioncnt++;
 			}
 		}
+		if (collisioncnt == 1) {
+			for (int i = 0; i < 4; i++) {
+				if (!collision[i] && m_BeforePos == m_Pos) {
+					switch (direction[i])
+					{
+					case UP:
+						if (!DirectionCheck(UP)) {
+							m_BeforePos = m_Pos;
+							m_Pos.y += -m_Speed;
+							m_Direction = UP;
+							ResetArray();
+							break;
+						}
+						else {
+							continue;
+						}
+					case DOWN:
+						if (!DirectionCheck(DOWN)) {
+							m_BeforePos = m_Pos;
+							m_Pos.y += m_Speed;
+							m_Direction = DOWN;
+							ResetArray();
+							break;
+						}
+						else {
+							continue;
+						}
+					case RIGHT:
+						if (!DirectionCheck(RIGHT)) {
+							m_BeforePos = m_Pos;
+							m_Pos.x += -m_Speed;
+							m_Direction = RIGHT;
+							ResetArray();
+							break;
+						}
+						else {
+							continue;
+						}
+					case LEFT:
+						if (!DirectionCheck(LEFT)) {
+							m_BeforePos = m_Pos;
+							m_Pos.x += m_Speed;
+							m_Direction = LEFT;
+							ResetArray();
+							break;
+						}
+						else {
+							continue;
+						}
+					}
+				}
+			}
+		}
+		else if (collisioncnt == 2) {
+			for (int i = 0; i < 4; i++) {
+				if (!collision[i]) {
+					switch (direction[i])
+					{
+					case UP:
+						if (!DirectionCheck(UP)) {
+							m_Pos.y += m_Speed;
+							m_Direction = UP;
+							ResetArray();
+							break;
+						}
+						else {
+							continue;
+						}
+					case DOWN:
+						if (!DirectionCheck(DOWN)) {
+							m_Pos.y += -m_Speed;
+							m_Direction = DOWN;
+							ResetArray();
+							break;
+						}
+						else {
+							continue;
+						}
+					case RIGHT:
+						if (!DirectionCheck(RIGHT)) {
+							m_Pos.x += m_Speed;
+							m_Direction = RIGHT;
+							ResetArray();
+							break;
+						}
+						else {
+							continue;
+						}
+					case LEFT:
+						if (!DirectionCheck(LEFT)) {
+							m_Pos.x += -m_Speed;
+							m_Direction = LEFT;
+							ResetArray();
+							break;
+						}
+						else {
+							continue;
+						}
+					}
+				}
+			}
+		}
+		else if (collisioncnt == 3) {
+			for (int i = 0; i < 4; i++) {
+				if (!collision[i]) {
+					switch (direction[i])
+					{
+					case UP:
+						if (!DirectionCheck(UP)) {
+							m_Pos.y += m_Speed;
+							m_Direction = UP;
+							ResetArray();
+							break;
+						}
+					case DOWN:
+						if (!DirectionCheck(DOWN)) {
+							m_Pos.y += -m_Speed;
+							m_Direction = DOWN;
+							ResetArray();
+							break;
+						}
+					case RIGHT:
+						if (!DirectionCheck(RIGHT)) {
+							m_Pos.x += m_Speed;
+							m_Direction = RIGHT;
+							ResetArray();
+							break;
+						}
+					case LEFT:
+						if (!DirectionCheck(LEFT)) {
+							m_Pos.x += -m_Speed;
+							m_Direction = LEFT;
+							ResetArray();
+							break;
+						}
+					}
+				}
+			}
+		}
+		else if (collisioncnt == 4) {
+
+		}
 	}
-	
-	//D3DXVECTOR2 UpDir[4];
-	//UpDir[0] = { 0,-1.0f };
-	//UpDir[1] = { 0,1.0f };
-	//UpDir[2] = { 1.0f, 0 };
-	//UpDir[3] = { -1.0,0 };
-	//D3DXVECTOR2 RightDir[4];
-	//RightDir[0] = { 1.0f,0 };
-	//RightDir[1] = { -1.0f,0 };
-	//RightDir[2] = { 0, -1.0f };
-	//RightDir[3] = { 0,1.0f };
-	//D3DXVECTOR2 DownDir[4];
-	//DownDir[0] = { 0,1.0f };
-	//DownDir[1] = { 0,- 1.0f };
-	//DownDir[2] = { -1.0f,0 };
-	//DownDir[3] = { 1.0f,0 };
-	//D3DXVECTOR2 LeftDir[4];
-	//LeftDir[0] = { -1.0f,0 };
-	//LeftDir[1] = { 1.0f,0 };
-	//LeftDir[2] = { 0,-1.0f };
-	//LeftDir[3] = { 0,1.0f };
-	//int direction[4];
-	//switch (m_Direction)
-	//{
-	//case CharaObjectBase::UP:
-	//	ChangePostion(&m_LargestRect, UpDir[0], m_Height / 2, m_Pos);
-	//	ChangePostion(&m_SmallRect,   UpDir[1], m_Height / 2, m_Pos);
-	//	ChangePostion(&m_MiddleRect,  UpDir[2], m_Width / 2, m_Pos);
-	//	ChangePostion(&m_MiddleRect2,  UpDir[3], m_Width / 2, m_Pos);
-	//	direction[0] = UP;
-	//	direction[1] = DOWN;
-	//	direction[2] = RIGHT;
-	//	direction[3] = LEFT;
-	//	break;
-	//case CharaObjectBase::RIGHT:
-	//	ChangePostion(&m_LargestRect, RightDir[0], m_Width / 2, m_Pos);
-	//	ChangePostion(&m_SmallRect,   RightDir[1], m_Width / 2, m_Pos);
-	//	ChangePostion(&m_MiddleRect,  RightDir[2], m_Height / 2, m_Pos);
-	//	ChangePostion(&m_MiddleRect2,  RightDir[3], m_Height / 2, m_Pos);
-	//	direction[0] = RIGHT;
-	//	direction[1] = LEFT;
-	//	direction[2] = UP;
-	//	direction[3] = DOWN;
-	//	break;
-	//case CharaObjectBase::DOWN:
-	//	ChangePostion(&m_LargestRect, DownDir[0], m_Height / 2, m_Pos);
-	//	ChangePostion(&m_SmallRect,   DownDir[1], m_Height / 2, m_Pos);
-	//	ChangePostion(&m_MiddleRect,  DownDir[2], m_Width / 2, m_Pos);
-	//	ChangePostion(&m_MiddleRect2,  DownDir[3], m_Width / 2, m_Pos);
-	//	direction[0] = DOWN;
-	//	direction[1] = UP;
-	//	direction[2] = LEFT;
-	//	direction[3] = RIGHT;
-	//	break;
-	//case CharaObjectBase::LEFT:
-	//	ChangePostion(&m_LargestRect, LeftDir[0], m_Width / 2, m_Pos);
-	//	ChangePostion(&m_SmallRect,   LeftDir[1], m_Width / 2, m_Pos);
-	//	ChangePostion(&m_MiddleRect,  LeftDir[2], m_Height / 2, m_Pos);
-	//	ChangePostion(&m_MiddleRect2,  LeftDir[3], m_Height / 2, m_Pos);
-	//	direction[0] = LEFT;
-	//	direction[1] = RIGHT;
-	//	direction[2] = UP;
-	//	direction[3] = DOWN;
-	//	break;
-	//}
-	//m_pBoxCollision[0]->SetPosition(&D3DXVECTOR2(50 + m_LargestRect.left, 50 + m_LargestRect.top));
-	//m_pBoxCollision[1]->SetPosition(&D3DXVECTOR2(50 + m_SmallRect.left, 50 + m_SmallRect.top));
-	//m_pBoxCollision[2]->SetPosition(&D3DXVECTOR2(50 + m_MiddleRect.left, 50 + m_MiddleRect.top));
-	//m_pBoxCollision[3]->SetPosition(&D3DXVECTOR2(50 + m_MiddleRect2.left, 50 + m_MiddleRect2.top));
 
-	//if (!m_IsDeath) {
-	//	bool collision[4]{ false,false,false,false };
-	//	int collisioncnt = 0;
-	//	//矩形四つを見ている
-	//	for (int i = 0; i < m_pBoxCollision.size(); i++) {
-	//		//矩形の当たったものにゾンビがいるかどうか
-	//		if (m_pBoxCollision[i]->IsSearchOtherCollisionId(m_pBoxCollision[i]->GetOtherCollisionId(), Collision::ZOMBIE)) {
-	//			collision[i] = true;
-	//			collisioncnt++;
-	//		}
-	//	}
-	//	if (collisioncnt == 1) {
-	//		for (int i = 0; i < 4; i++) {
-	//			if (!collision[i] && m_BeforePos == m_Pos) {
-	//				switch (direction[i])
-	//				{
-	//				case UP:
-	//					if (!DirectionCheck(UP)) {
-	//						m_BeforePos = m_Pos;
-	//						m_Pos.y += -m_Speed;
-	//						m_Direction = UP;
-	//						ResetArray();
-	//						break;
-	//					}
-	//					else {
-	//						continue;
-	//					}
-	//				case DOWN:
-	//					if (!DirectionCheck(DOWN)) {
-	//						m_BeforePos = m_Pos;
-	//						m_Pos.y += m_Speed;
-	//						m_Direction = DOWN;
-	//						ResetArray();
-	//						break;
-	//					}
-	//					else {
-	//						continue;
-	//					}
-	//				case RIGHT:
-	//					if (!DirectionCheck(RIGHT)) {
-	//						m_BeforePos = m_Pos;
-	//						m_Pos.x += -m_Speed;
-	//						m_Direction = RIGHT;
-	//						ResetArray();
-	//						break;
-	//					}
-	//					else {
-	//						continue;
-	//					}
-	//				case LEFT:
-	//					if (!DirectionCheck(LEFT)) {
-	//						m_BeforePos = m_Pos;
-	//						m_Pos.x += m_Speed;
-	//						m_Direction = LEFT;
-	//						ResetArray();
-	//						break;
-	//					}
-	//					else {
-	//						continue;
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-	//	else if (collisioncnt == 2) {
-	//		for (int i = 0; i < 4; i++) {
-	//			if (!collision[i]) {
-	//				switch (direction[i])
-	//				{
-	//				case UP:
-	//					if (!DirectionCheck(UP)) {
-	//						m_Pos.y += m_Speed;
-	//						m_Direction = UP;
-	//						ResetArray();
-	//						break;
-	//					}
-	//					else {
-	//						continue;
-	//					}
-	//				case DOWN:
-	//					if (!DirectionCheck(DOWN)) {
-	//						m_Pos.y += -m_Speed;
-	//						m_Direction = DOWN;
-	//						ResetArray();
-	//						break;
-	//					}
-	//					else {
-	//						continue;
-	//					}
-	//				case RIGHT:
-	//					if (!DirectionCheck(RIGHT)) {
-	//						m_Pos.x += m_Speed;
-	//						m_Direction = RIGHT;
-	//						ResetArray();
-	//						break;
-	//					}
-	//					else {
-	//						continue;
-	//					}
-	//				case LEFT:
-	//					if (!DirectionCheck(LEFT)) {
-	//						m_Pos.x += -m_Speed;
-	//						m_Direction = LEFT;
-	//						ResetArray();
-	//						break;
-	//					}
-	//					else {
-	//						continue;
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-	//	else if (collisioncnt == 3) {
-	//		for (int i = 0; i < 4; i++) {
-	//			if (!collision[i]) {
-	//				switch (direction[i])
-	//				{
-	//				case UP:
-	//					if (!DirectionCheck(UP)) {
-	//						m_Pos.y += m_Speed;
-	//						m_Direction = UP;
-	//						ResetArray();
-	//						break;
-	//					}
-	//				case DOWN:
-	//					if (!DirectionCheck(DOWN)) {
-	//						m_Pos.y += -m_Speed;
-	//						m_Direction = DOWN;
-	//						ResetArray();
-	//						break;
-	//					}
-	//				case RIGHT:
-	//					if (!DirectionCheck(RIGHT)) {
-	//						m_Pos.x += m_Speed;
-	//						m_Direction = RIGHT;
-	//						ResetArray();
-	//						break;
-	//					}
-	//				case LEFT:
-	//					if (!DirectionCheck(LEFT)) {
-	//						m_Pos.x += -m_Speed;
-	//						m_Direction = LEFT;
-	//						ResetArray();
-	//						break;
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-	//	else if (collisioncnt == 4) {
-
-	//	}
-	//}
-
-	//for (int i = 0; i < 4; i++) {
-	//	m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
-	//}
+	for (int i = 0; i < 4; i++) {
+		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
+	}
 	m_pCollision->SetPosition(&m_Pos);
-	//m_LargestRect = { -50,-50,50,50 };
-	//m_SmallRect = { -12,-12,12,12 };
-	//m_MiddleRect = { -25,-25,25,25 };
-	//m_MiddleRect2 = { -25,-25,25,25 };
+	m_LargestRect = { -50,-50,50,50 };
+	m_SmallRect = { -12,-12,12,12 };
+	m_MiddleRect = { -25,-25,25,25 };
+	m_MiddleRect2 = { -25,-25,25,25 };
 }
 
 void Human::ChangePostion(RECT* rect, const D3DXVECTOR2& direction, float range, const D3DXVECTOR2& pos)

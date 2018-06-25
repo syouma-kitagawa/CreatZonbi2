@@ -112,6 +112,9 @@
     <Filter Include="ソース ファイル\Lib\Debag">
       <UniqueIdentifier>{accddb8f-39ea-4a8f-aada-614527a23161}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Lib\Fader">
+      <UniqueIdentifier>{0c217375-96eb-443d-b82b-8053af6b10b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectGraphics.h">
@@ -246,6 +249,9 @@
     <ClInclude Include="DebagMode.h">
       <Filter>ソース ファイル\Lib\Debag</Filter>
     </ClInclude>
+    <ClInclude Include="Fader.h">
+      <Filter>ソース ファイル\Lib\Fader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectGraphics.cpp">
@@ -364,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="DebagMode.cpp">
       <Filter>ソース ファイル\Lib\Debag</Filter>
+    </ClCompile>
+    <ClCompile Include="Fader.cpp">
+      <Filter>ソース ファイル\Lib\Fader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

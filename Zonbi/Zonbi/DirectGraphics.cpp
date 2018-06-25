@@ -16,7 +16,7 @@ DirectGraphics::DirectGraphics(HWND hWnd)
 	if (FAILED(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION))) {
 		MessageBox(0, "DirectXオブジェクトの生成に失敗しました", NULL, MB_OK);
 	}
-	D3DDISPLAYMODE		D3DdisplayMode;
+	D3DDISPLAYMODE D3DdisplayMode;
 	// DisplayModeの取得
 	if (FAILED(m_pDirect3D->GetAdapterDisplayMode(
 		D3DADAPTER_DEFAULT,

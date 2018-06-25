@@ -8,12 +8,13 @@
 #include"DirectInput.h"
 #include"TimeLimit.h"
 #include"SoundBufferManager.h"
-
+#include"Fader.h"
 
 Game::Game()
 {
 	CollisionManager::GetcollisionManager()->CreateCollisionManager();
 	//SoundBufferManager::GetInstance().LoadWaveFile("BGM\\TitleBgm.wav");
+	m_Fader = new Fader(240);
 	m_ZombieManager = new ZombieManager();
 	m_HumanManager = new HumanManager(m_ZombieManager);
 	m_PlayerControl = new PlayerControl();
@@ -38,29 +39,33 @@ Game::~Game()
 
 SceneBase::SCENE_ID Game::Update()
 {
-	SCENE_ID retId = SCENE_ID::MAIN;
-	DirectInput::GetInstance().UpdateMouse();
-	m_PlayerControl->Update();
-	if (!m_IsMusic) {
-	//	SoundBufferManager::GetInstance().PlayBackSound("BGM\\TitleBgm.wav", true);
+	if (m_first) {
+		m_Fader->FadeIn();
 	}
-	for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
-		(*ite)->Update();
+	if (m_Fader->GetFadeFinish()){
+		SCENE_ID retId = SCENE_ID::MAIN;
+		DirectInput::GetInstance().UpdateMouse();
+		m_PlayerControl->Update();
+		if (!m_IsMusic) {
+			//	SoundBufferManager::GetInstance().PlayBackSound("BGM\\TitleBgm.wav", true);
+		}
+		for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
+			(*ite)->Update();
+		}
+		if (m_TimeLimit->GetLimits() == 0) {
+			retId = SCENE_ID::GAMEOVER;
+		}
+		if (m_HumanManager->GetHumancnt() == 0) {
+			retId = SCENE_ID::GAMECLEAR;
+		}
+		CollisionManager::GetcollisionManager()->Update();
 	}
-	if (m_TimeLimit->GetLimits() == 0) {
-		retId = SCENE_ID::GAMEOVER;
-	}
-	if (m_HumanManager->GetHumancnt() == 0) {
-		retId = SCENE_ID::GAMECLEAR;
-	}
-	CollisionManager::GetcollisionManager()->Update();
 	return retId;
 }
 
 void Game::Draw() 
 {
 	DirectGraphics::GetpInstance()->StartRender();
-
 	m_GameBackground->Draw();
 	for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
 		(*ite)->Draw();
@@ -69,5 +74,8 @@ void Game::Draw()
 	DebugDrawHitRect(m_StageObjectManager);
 	DebugPlayerHitRect(m_ZombieManager->GetPlayerZombi());
 #endif
+	if (m_first) {
+		m_Fader->Draw();
+	}
 	DirectGraphics::GetpInstance()->EndRender();
 }
