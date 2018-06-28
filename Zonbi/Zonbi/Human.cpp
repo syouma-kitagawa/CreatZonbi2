@@ -306,37 +306,37 @@ void Human::Update()
 	//}
 
 	//TODO
-	for (auto ite = m_pCollision->GetOtherCollision().begin(); ite != m_pCollision->GetOtherCollision().end(); ++ite) {
-		if ((*ite)->GetCollisionId() == Collision::ZOMBIE) {
-			m_pZombieCollisions.push_back((*ite));
+	for (int i = 0; i < m_pCollision->GetOtherCollision().size(); i++) {
+		if (m_pCollision->GetOtherCollision()[i]->GetCollisionId() == Collision::ZOMBIE) {
+			m_pZombieCollisions.push_back(m_pCollision->GetOtherCollision()[i]);
 			m_IsZombieCollisioned = true;
 		}
 	}
 
-	//TODO
-	if (m_IsZombieCollisioned)
-	{
-		D3DXVECTOR2 NearZombie;
-		std::vector<D3DXVECTOR2> tmpPos;
-		for (int i = 0; i < m_pZombieCollisions.size(); i++)
+		//TODO
+		if (m_IsZombieCollisioned)
 		{
-			D3DXVECTOR2 tmp;
-			//TODO â‘Î’l“ü‚ê‚é
-			tmp.x = m_Pos.x - m_pZombieCollisions[i]->GetPosition()->x;
-			tmp.y = m_Pos.y - m_pZombieCollisions[i]->GetPosition()->y;
+			D3DXVECTOR2 NearZombie;
+			std::vector<D3DXVECTOR2> tmpPos;
+			for (int i = 0; i < m_pZombieCollisions.size(); i++)
+			{
+				D3DXVECTOR2 tmp;
+				//TODO â‘Î’l“ü‚ê‚é
+				tmp.x = m_Pos.x - m_pZombieCollisions[i]->GetPosition()->x;
+				tmp.y = m_Pos.y - m_pZombieCollisions[i]->GetPosition()->y;
 
-			tmp.x = fabs(tmp.x);
-			tmp.y = fabs(tmp.y);
+				tmp.x = fabs(tmp.x);
+				tmp.y = fabs(tmp.y);
 
-			tmpPos.push_back(tmp);
-		}
-		for (int i = 0; i < tmpPos.size(); i++) {
-			for (int j = 1; j < tmpPos.size(); j++){
-				NearZombie = tmpPos
+				tmpPos.push_back(tmp);
 			}
-		}
+			/*for (int i = 0; i < tmpPos.size(); i++) {
+				for (int j = 1; j < tmpPos.size(); j++){
+					NearZombie = tmpPos
+				}
+			}*/
 
-	}
+		}
 
 	///////
 	//D3DXVECTOR2 UpDir[4];

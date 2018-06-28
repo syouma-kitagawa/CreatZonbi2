@@ -47,7 +47,7 @@ SceneBase::SCENE_ID Game::Update()
 		DirectInput::GetInstance().UpdateMouse();
 		m_PlayerControl->Update();
 		SoundBufferManager::GetInstance().PlayBackSound("BGM/GamePlay.wav", true);
-		
+		CollisionManager::GetcollisionManager()->Update();
 		for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
 			(*ite)->Update();
 		}
@@ -57,7 +57,6 @@ SceneBase::SCENE_ID Game::Update()
 		if (m_HumanManager->GetHumancnt() == 0) {
 			retId = SCENE_ID::GAMECLEAR;
 		}
-		CollisionManager::GetcollisionManager()->Update();
 	}
 	return retId;
 }
