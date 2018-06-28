@@ -12,13 +12,14 @@ Zombie::Zombie(D3DXVECTOR2* pos,float speed, int width, int height)
 	m_pCollision->SetPosition(&m_Pos);
 	m_pCollision->SetSize(&D3DXVECTOR2(m_Width * 2 - m_Width, m_Height * 2 - m_Height));
 	m_pCollision->SetCollisionId(Collision::ZOMBIE);
+	m_pCollision->SetDirection(Direction::UP);
 	CollisionManager::GetcollisionManager()->AddCollision(m_pCollision);
 
 	for (int i = 0; i < 4; i++) {
 		m_pTmpCollision[i] = new Collision();
 		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
 		m_pTmpCollision[i]->SetSize(&D3DXVECTOR2(1, 1));
-		m_pTmpCollision[i]->SetCollisionId(Collision::ZOMBIE);
+		m_pTmpCollision[i]->SetCollisionId(Collision::ZOMBIEHIT);
 		CollisionManager::GetcollisionManager()->AddCollision(m_pTmpCollision[i]);
 		DirectGraphics::GetpInstance()->InitGraphics("Texture/combine.png");
 	}
@@ -221,6 +222,7 @@ void Zombie::Update()
 	m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
 	}
 	m_pCollision->SetPosition(&m_Pos);
+	m_pCollision->SetDirection(m_Direction);
 }
 
 bool Zombie::DirectionCheack(Direction direction)

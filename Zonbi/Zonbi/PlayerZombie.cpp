@@ -14,6 +14,7 @@ PlayerZombie::PlayerZombie(D3DXVECTOR2* pos,float speed,int width,int height)
 	m_pCollision->SetPosition(&m_Pos);
 	m_pCollision->SetSize(&D3DXVECTOR2(m_Width * 2 - m_Width, m_Height * 2 - m_Height));
 	m_pCollision->SetCollisionId(Collision::ZOMBIE);
+	m_pCollision->SetDirection(Direction::UP);
 	CollisionManager::GetcollisionManager()->AddCollision(m_pCollision);
 	DirectGraphics::GetpInstance()->InitGraphics("Texture/combine.png");
 
@@ -21,14 +22,14 @@ PlayerZombie::PlayerZombie(D3DXVECTOR2* pos,float speed,int width,int height)
 		m_pTmpCollision[i] = new Collision();
 		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
 		m_pTmpCollision[i]->SetSize(&D3DXVECTOR2(1,1));
-		m_pTmpCollision[i]->SetCollisionId(Collision::ZOMBIE);
+		m_pTmpCollision[i]->SetCollisionId(Collision::ZOMBIEHIT);
 		CollisionManager::GetcollisionManager()->AddCollision(m_pTmpCollision[i]);
 	}
 	for (int i = 0; i < 4; i++) {
 		m_pUpDownCollision[i] = new Collision();
 		m_pUpDownCollision[i]->SetPosition(&m_CollisionPos[i]);
 		m_pUpDownCollision[i]->SetSize(&D3DXVECTOR2(1, 1));
-		m_pUpDownCollision[i]->SetCollisionId(Collision::ZOMBIE);
+		m_pUpDownCollision[i]->SetCollisionId(Collision::ZOMBIEHIT);
 		CollisionManager::GetcollisionManager()->AddCollision(m_pUpDownCollision[i]);
 	}
 	m_pTmpCollision[0]->SetSize(&D3DXVECTOR2(m_Width, 1));
@@ -227,10 +228,6 @@ void PlayerZombie::Update()
 		}
 		m_RoutePointNum = 0;*/
 		//m_IsClick = true;
-	}
-	bool tmp = false;
-	if (DirectInput::GetInstance().GetMouseData()->RightMouse == Utility::BUTTON_STATE::PUSH) {
-		tmp = true;
 	}
 	if (!m_pCollision->IsSearchOtherCollisionId(m_pCollision->GetOtherCollisionId(), Collision::HUMAN)) {
 		if (m_Difference.y > 0) {
@@ -444,6 +441,7 @@ void PlayerZombie::Update()
 	for (int i = 0; i < 4; i++) {
 		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
 	}
+	m_pCollision->SetDirection(m_Direction);
 	m_pCollision->SetPosition(&m_Pos);
 }
 

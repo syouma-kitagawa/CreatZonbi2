@@ -23,7 +23,7 @@ Title::~Title()
 
 SceneBase::SCENE_ID Title::Update()
 {
-		SoundBufferManager::GetInstance().PlayBackSound("BGM/Title.wav", true);
+	SoundBufferManager::GetInstance().PlayBackSound("BGM/Title.wav", true);
 	SCENE_ID retSceneId = SCENE_ID::TITLE;
 	DirectInput::GetInstance().UpdateMouse();
 	if (DirectInput::GetInstance().GetMouseData()->LeftMouse == Utility::BUTTON_STATE::PUSH) {

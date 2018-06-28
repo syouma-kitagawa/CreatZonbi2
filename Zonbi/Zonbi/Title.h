@@ -20,7 +20,6 @@ public:
 private:
 	Fader * m_Fader;
 	bool m_FaderStart = false;
-	bool m_IsMusic = false;
 	std::vector<ObjectBase*> m_pObjectBase;
 };
 

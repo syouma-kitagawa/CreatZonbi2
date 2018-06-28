@@ -45,7 +45,8 @@ private:
 	bool IsTmpFlg[4]{ false,false,false,false };
 
 	Collision* m_pCollision;
-	std::vector<Collision*> m_pBoxCollision;
+	Collision* m_pBoxCollision;
+	std::vector<Collision*> m_pZombieCollisions;
 	int m_Size = 95;
 	D3DXVECTOR2 m_Pos;
 	D3DXVECTOR2 m_BeforePos;
@@ -67,6 +68,9 @@ private:
 	// 
 	bool m_IsDeath = false;
 	bool m_IsRevival = false;
+
+	bool m_IsZombieCollisioned = false;
+
 };
 
 #endif
