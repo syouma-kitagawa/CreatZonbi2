@@ -59,7 +59,7 @@ private:
 	int m_Revivalcnt = 0;
 	int m_Hp = 180;
 	int m_Speed = 1;
-	RECT m_LargestRect{ -50,-50,50,50 };
+	RECT m_LargestRect{ -100,-100,100,100 };
 	RECT m_SmallRect{ -12,-12,12,12 };
 	RECT m_MiddleRect{ -25,-25,25,25 };
 	RECT m_MiddleRect2{ -25,-25,25,25 };

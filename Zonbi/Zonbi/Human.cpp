@@ -1,6 +1,7 @@
 #include"Human.h"
 #include"Utility.h"
 #include"DirectGraphics.h"
+#include<algorithm>
 
 Human::Human(D3DXVECTOR2* pos, int width, int height, D3DXVECTOR2 pos2[])
 	: m_Pos(*pos),m_Width(width),m_Height(height),m_BeforePos(m_Pos),m_CollisionDir{NON,NON,NON,NON}
@@ -317,24 +318,73 @@ void Human::Update()
 		if (m_IsZombieCollisioned)
 		{
 			D3DXVECTOR2 NearZombie;
-			std::vector<D3DXVECTOR2> tmpPos;
+			std::vector<float> tmpPos;
+			std::vector<float> tmpBuffer;
+			int Id;
+
 			for (int i = 0; i < m_pZombieCollisions.size(); i++)
 			{
 				D3DXVECTOR2 tmp;
-				//TODO 絶対値入れる
+				
+				/* 研究員とゾンビとの間の距離を取っている */
 				tmp.x = m_Pos.x - m_pZombieCollisions[i]->GetPosition()->x;
 				tmp.y = m_Pos.y - m_pZombieCollisions[i]->GetPosition()->y;
 
-				tmp.x = fabs(tmp.x);
-				tmp.y = fabs(tmp.y);
+				/* 2乗している */
+				float x = pow(tmp.x, 2.0);
+				float y = pow(tmp.y, 2.0);
 
-				tmpPos.push_back(tmp);
+				/* x,yどちらかが同じ座標ならば斜めの距離を出さなくてもいい？ */
+
+				/* これで斜めの距離を出している */
+				float length = ( x + y);
+
+				/* ここでlengthの平方根を出している */
+				float les = sqrt(length);
+
+				tmpPos.push_back(les);
 			}
-			/*for (int i = 0; i < tmpPos.size(); i++) {
-				for (int j = 1; j < tmpPos.size(); j++){
-					NearZombie = tmpPos
+
+			/* 一時的に非難する */
+			for (int g = 0; g < tmpPos.size(); ++g)
+			{
+				tmpBuffer.push_back(tmpPos[g]);
+			}
+
+			/*	
+			*	昇順でソートをしている
+			*	距離が短い順に前に来る
+			*/
+			std::sort(tmpBuffer.begin(), tmpBuffer.end());
+
+			/* ここで一番近い座標が入ったvectorと前のvectorを見比べてここから更にCollisionsを見る事によってどのゾンビかを特定する */
+			for (int k = 0; k < tmpPos.size(); ++k)
+			{
+				if (tmpBuffer[0] == tmpPos[k])
+				{
+					Id = k;
 				}
-			}*/
+			}
+
+			/* 敵の方向を自分にいれている */
+			m_Direction = m_pZombieCollisions[Id]->GetDirection();
+
+			/* 敵の位置を貰う */
+			switch (m_pZombieCollisions[Id]->GetDirection())
+			{
+			case UP:
+				m_Pos.y += -m_Speed;
+				break;
+			case DOWN:
+				m_Pos.y += m_Speed;
+				break;
+			case RIGHT:
+				m_Pos.x += -m_Speed;
+				break;
+			case LEFT:
+				m_Pos.x += -m_Speed;
+				break;
+			}
 
 		}
 
