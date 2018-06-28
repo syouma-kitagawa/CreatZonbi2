@@ -40,6 +40,7 @@ private:
 
 	Collision* m_pTmpCollision[4];
 	D3DXVECTOR2 m_CollisionPos[4];
+	Collision* m_pUpDownCollision[2];
 	D3DXVECTOR2 m_Difference;
 	Collision* m_pCollision;
 	Direction m_Direction;

@@ -13,14 +13,14 @@
 Game::Game()
 {
 	CollisionManager::GetcollisionManager()->CreateCollisionManager();
-	//SoundBufferManager::GetInstance().LoadWaveFile("BGM\\TitleBgm.wav");
+	SoundBufferManager::GetInstance().LoadWaveFile("BGM/GamePlay.wav");
 	m_Fader = new Fader(240);
 	m_ZombieManager = new ZombieManager();
 	m_HumanManager = new HumanManager(m_ZombieManager);
 	m_PlayerControl = new PlayerControl();
 	m_StageObjectManager = new StageManager();
 	m_GameBackground = new GameBackground();
-	m_TimeLimit = new TimeLimit(std::bind(&Game::SetRetSceneId, this, std::placeholders::_1), 100);
+	m_TimeLimit = new TimeLimit(std::bind(&Game::SetRetSceneId, this, std::placeholders::_1), 99);
 	m_ObjectBase.push_back(m_ZombieManager);
 	m_ObjectBase.push_back(m_HumanManager);
 	m_ObjectBase.push_back(m_TimeLimit);
@@ -29,7 +29,7 @@ Game::Game()
 
 Game::~Game()
 {
-	//SoundBufferManager::GetInstance().CancelSound("BGM\\TitleBgm.wav");
+	SoundBufferManager::GetInstance().CancelSound("BGM/GamePlay.wav");
 	for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
 		delete *ite;
 	}
@@ -46,9 +46,8 @@ SceneBase::SCENE_ID Game::Update()
 		SCENE_ID retId = SCENE_ID::MAIN;
 		DirectInput::GetInstance().UpdateMouse();
 		m_PlayerControl->Update();
-		if (!m_IsMusic) {
-			//	SoundBufferManager::GetInstance().PlayBackSound("BGM\\TitleBgm.wav", true);
-		}
+		SoundBufferManager::GetInstance().PlayBackSound("BGM/GamePlay.wav", true);
+		
 		for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
 			(*ite)->Update();
 		}

@@ -24,10 +24,17 @@ PlayerZombie::PlayerZombie(D3DXVECTOR2* pos,float speed,int width,int height)
 		m_pTmpCollision[i]->SetCollisionId(Collision::ZOMBIE);
 		CollisionManager::GetcollisionManager()->AddCollision(m_pTmpCollision[i]);
 	}
+	for (int i = 0; i < 4; i++) {
+		m_pUpDownCollision[i] = new Collision();
+		m_pUpDownCollision[i]->SetPosition(&m_CollisionPos[i]);
+		m_pUpDownCollision[i]->SetSize(&D3DXVECTOR2(1, 1));
+		m_pUpDownCollision[i]->SetCollisionId(Collision::ZOMBIE);
+		CollisionManager::GetcollisionManager()->AddCollision(m_pUpDownCollision[i]);
+	}
 	m_pTmpCollision[0]->SetSize(&D3DXVECTOR2(m_Width, 1));
 	m_pTmpCollision[1]->SetSize(&D3DXVECTOR2(m_Width, 1));
-	//m_pTmpCollision[2]->SetSize(&D3DXVECTOR2(1, m_Height));
-	//m_pTmpCollision[3]->SetSize(&D3DXVECTOR2(1, m_Height));
+	m_pTmpCollision[2]->SetSize(&D3DXVECTOR2(1, m_Height / 2 + 15));
+	m_pTmpCollision[3]->SetSize(&D3DXVECTOR2(1, m_Height / 2 + 15));
 }
 
 
@@ -221,6 +228,10 @@ void PlayerZombie::Update()
 		m_RoutePointNum = 0;*/
 		//m_IsClick = true;
 	}
+	bool tmp = false;
+	if (DirectInput::GetInstance().GetMouseData()->RightMouse == Utility::BUTTON_STATE::PUSH) {
+		tmp = true;
+	}
 	if (!m_pCollision->IsSearchOtherCollisionId(m_pCollision->GetOtherCollisionId(), Collision::HUMAN)) {
 		if (m_Difference.y > 0) {
 			if (m_Pos.y + m_Speed < m_NextPos.y
@@ -234,6 +245,10 @@ void PlayerZombie::Update()
 					m_Pos.x += m_Speed;
 					m_Direction = RIGHT;
 				}
+				else if(m_pUpDownCollision[0]->IsSearchOtherCollisionId(m_pUpDownCollision[0]->GetOtherCollisionId(),Collision::OBJECT)){
+					m_Pos.x += m_Speed;
+					m_Direction = RIGHT;
+				}
 				else {
 					m_Pos.y += 1.0f;
 					m_Direction = DOWN;
@@ -242,6 +257,10 @@ void PlayerZombie::Update()
 			else if (m_Pos.x - m_Speed > m_NextPos.x
 				&& !m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
 				if (!m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x -= m_Speed;
+					m_Direction = LEFT;
+				}
+				else if(m_pUpDownCollision[0]->IsSearchOtherCollisionId(m_pUpDownCollision[0]->GetOtherCollisionId(), Collision::OBJECT)){
 					m_Pos.x -= m_Speed;
 					m_Direction = LEFT;
 				}
@@ -263,6 +282,10 @@ void PlayerZombie::Update()
 					m_Pos.x -= m_Speed;
 					m_Direction = LEFT;
 				}
+				else if (m_pUpDownCollision[0]->IsSearchOtherCollisionId(m_pUpDownCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x -= m_Speed;
+					m_Direction = LEFT;
+				}
 				else {
 					m_Pos.y -= 1.0f;
 					m_Direction = UP;
@@ -274,6 +297,10 @@ void PlayerZombie::Update()
 					m_Pos.x += m_Speed;
 					m_Direction = RIGHT;
 				}
+				else if (m_pUpDownCollision[0]->IsSearchOtherCollisionId(m_pUpDownCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += m_Speed;
+					m_Direction = RIGHT;
+				}
 				else {
 					m_Pos.y -= 1.0f;
 					m_Direction = UP;
@@ -281,6 +308,7 @@ void PlayerZombie::Update()
 			}
 		}
 	}
+
 	/*if (m_Difference.y > 0) {
 		if (m_Pos.y < m_NextPos.y - kMargin && m_pTmpCollision[0]->GetOtherCollisionId() != Collision::OBJECT) {
 			m_Pos.y += m_Speed;
@@ -418,6 +446,7 @@ void PlayerZombie::Update()
 	}
 	m_pCollision->SetPosition(&m_Pos);
 }
+
 
 bool PlayerZombie::DirectionCheck(Direction direction)
 {

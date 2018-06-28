@@ -9,13 +9,13 @@ Title::Title()
 {
 	m_Fader = new Fader(240);
 	m_pObjectBase.push_back(new TitleBackgraund());
-	//SoundBufferManager::GetInstance().LoadWaveFile("BGM\\TitleBgm.wav");
+	SoundBufferManager::GetInstance().LoadWaveFile("BGM/Title.wav");
 }
 
 
 Title::~Title()
 {
-	//SoundBufferManager::GetInstance().CancelSound("BGM\\TitleBgm.wav");
+	SoundBufferManager::GetInstance().CancelSound("BGM/Title.wav");
 	for (auto ite = m_pObjectBase.begin(); ite != m_pObjectBase.end(); ++ite) {
 		delete *ite;
 	}
@@ -23,9 +23,7 @@ Title::~Title()
 
 SceneBase::SCENE_ID Title::Update()
 {
-	if (!m_IsMusic) {
-	//	SoundBufferManager::GetInstance().PlayBackSound("BGM\\TitleBgm.wav", true);
-	}
+		SoundBufferManager::GetInstance().PlayBackSound("BGM/Title.wav", true);
 	SCENE_ID retSceneId = SCENE_ID::TITLE;
 	DirectInput::GetInstance().UpdateMouse();
 	if (DirectInput::GetInstance().GetMouseData()->LeftMouse == Utility::BUTTON_STATE::PUSH) {
