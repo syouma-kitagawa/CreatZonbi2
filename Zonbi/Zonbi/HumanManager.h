@@ -21,7 +21,7 @@ public:
 	virtual void Update();
 	int GetHumancnt() { return m_Humancnt; }
 private:
-	int m_Humancnt = 3;
+	int m_Humancnt;
 
 	std::vector<Human*> m_pHuman;
 	ZombieManager* m_pZombieManager;

@@ -23,12 +23,14 @@ private:
 	const float m_Tv = 0.0536f;
 
 	Collision* m_pTmpCollision[4];
+	Collision* m_pUpDownCollision[2];
 	D3DXVECTOR2 m_CollisionPos[4];
 	D3DXVECTOR2 m_Difference;
 
 	Collision* m_pCollision;
 	Direction m_Direction;
 	Direction m_CollisionDir[4];
+
 	D3DXVECTOR2 m_Pos;
 	D3DXVECTOR2 m_BeforePos;
 	float m_Speed;
@@ -38,6 +40,8 @@ private:
 	//ÇÃÇøÇ…ñºëOïœçX
 	D3DXVECTOR2 m_NextPos;
 	int m_Fcnt = 0;
+
+	bool m_IsAttack = false;
 };
 
 #endif

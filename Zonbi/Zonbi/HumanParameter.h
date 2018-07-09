@@ -14,8 +14,11 @@ public:
 		D3DXVECTOR2 pos;
 		int width;
 		int height;
+		int atkWidth;
+		int atkHeight;
 		float speed;
 		D3DXVECTOR2 tmpPos[4];
+
 	};
 
 	static HumanParameter& GetInstance()

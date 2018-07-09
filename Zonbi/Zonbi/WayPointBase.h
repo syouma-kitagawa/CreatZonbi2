@@ -28,10 +28,12 @@ public:
 	WayPointBase() {};
 	virtual ~WayPointBase() {};
 	virtual PlacePoint GetPlace() = 0;
+	//ã‰º¶‰E‚ÉWayPoint‚ª‚ ‚ê‚Î‚»‚ê‚ğ•Ô‚·
 	virtual std::vector<WayPointBase*>& GetNearPoints(){ return m_NearPoint; }
 	virtual ROUTE GetRoute() { return m_PlacePoint.Route; }
 	virtual WayPointBase* GetOneBeforePoint() { return m_OneBeforePoint; }
 	virtual void SetRoute(ROUTE route) { m_PlacePoint.Route = route; }
+	//À•W‚ğ³•ûŒ`‚É‚©‚¦‚éŠÖ”
 	virtual void ChangePlacePoint(D3DXVECTOR2 pos) {
 		m_PlacePoint.Rect.left = m_PlacePoint.Rect.left - pos.x;
 		m_PlacePoint.Rect.top = m_PlacePoint.Rect.top - pos.y;

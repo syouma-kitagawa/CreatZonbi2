@@ -20,7 +20,7 @@ Game::Game()
 	m_PlayerControl = new PlayerControl();
 	m_StageObjectManager = new StageManager();
 	m_GameBackground = new GameBackground();
-	m_TimeLimit = new TimeLimit(std::bind(&Game::SetRetSceneId, this, std::placeholders::_1), 99);
+	m_TimeLimit = new TimeLimit(std::bind(&Game::SetRetSceneId, this, std::placeholders::_1), 150);
 	m_ObjectBase.push_back(m_ZombieManager);
 	m_ObjectBase.push_back(m_HumanManager);
 	m_ObjectBase.push_back(m_TimeLimit);
@@ -51,12 +51,12 @@ SceneBase::SCENE_ID Game::Update()
 		for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
 			(*ite)->Update();
 		}
-		if (m_TimeLimit->GetLimits() == 0) {
-			retId = SCENE_ID::GAMEOVER;
-		}
-		if (m_HumanManager->GetHumancnt() == 0) {
-			retId = SCENE_ID::GAMECLEAR;
-		}
+	}
+	if (m_TimeLimit->GetLimits() == 0) {
+		retId = SCENE_ID::GAMEOVER;
+	}
+	if (m_HumanManager->GetHumancnt() == 0) {
+		retId = SCENE_ID::GAMECLEAR;
 	}
 	return retId;
 }
@@ -68,6 +68,7 @@ void Game::Draw()
 	for (auto ite = m_ObjectBase.begin(); ite != m_ObjectBase.end(); ++ite) {
 		(*ite)->Draw();
 	}
+	m_GameBackground->WallDraw();
 #ifdef DEBUG_RUN
 	DebugDrawHitRect(m_StageObjectManager);
 	DebugPlayerHitRect(m_ZombieManager->GetPlayerZombi());

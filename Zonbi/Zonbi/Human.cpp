@@ -3,8 +3,8 @@
 #include"DirectGraphics.h"
 #include<algorithm>
 
-Human::Human(D3DXVECTOR2* pos, int width, int height, D3DXVECTOR2 pos2[])
-	: m_Pos(*pos),m_Width(width),m_Height(height),m_BeforePos(m_Pos),m_CollisionDir{NON,NON,NON,NON}
+Human::Human(D3DXVECTOR2* pos, int width, int height, D3DXVECTOR2 pos2[], int attackWidth, int attackHeight)
+	: m_Pos(*pos),m_Width(width),m_Height(height),m_BeforePos(m_Pos),m_AttackWidth(attackWidth),m_AttackHeight(attackHeight)
 {
 	for (int i = 0; i < 4; i++) {
 		m_TmpPos[i] = pos2[i];
@@ -46,6 +46,10 @@ Human::Human(D3DXVECTOR2* pos, int width, int height, D3DXVECTOR2 pos2[])
 		m_pTmpCollision[i]->SetCollisionId(Collision::BOX);
 		CollisionManager::GetcollisionManager()->AddCollision(m_pTmpCollision[i]);
 	}
+	m_pTmpCollision[0]->SetSize(&D3DXVECTOR2(m_Width, 1));
+	m_pTmpCollision[1]->SetSize(&D3DXVECTOR2(m_Width, 1));
+	m_pTmpCollision[2]->SetSize(&D3DXVECTOR2(1, m_Height / 2 + 15));
+	m_pTmpCollision[3]->SetSize(&D3DXVECTOR2(1, m_Height / 2 + 15));
 }
 
 
@@ -172,6 +176,9 @@ void Human::Draw()
 			}
 		}
 	}
+	if (m_IsToBeAttack) {
+		ToAttack();
+	}
 	if (m_Fcnt != 60) {
 		m_Fcnt++;
 	}
@@ -193,6 +200,9 @@ void Human::Update()
 
 	if (m_pCollision->IsSearchOtherCollisionId(m_pCollision->GetOtherCollisionId(), Collision::ZOMBIE)) {
 		m_Hp--;
+		if (m_Hp % 30 >= 10) {
+			m_IsToBeAttack = true;
+		}
 		if (m_Hp == 0) {
 			m_IsDeath = true;
 		}
@@ -206,113 +216,15 @@ void Human::Update()
 		}
 	}
 	m_BeforePos = m_Pos;
-	////必要ない
-	//if (!IsTmpFlg[0]) {
-	//	if (m_Pos.x < m_TmpPos[0].x) {
-	//		m_Pos.x += m_Speed;
-	//		m_Direction = RIGHT;
-	//	}
-	//	else if (m_Pos.x > m_TmpPos[0].x) {
-	//		m_Pos.x += -m_Speed;
-	//		m_Direction = LEFT;
-	//	}
-	//	else if (m_Pos.y < m_TmpPos[0].y) {
-	//		m_Pos.y += m_Speed;
-	//		m_Direction = DOWN;
-	//	}
-	//	else if (m_Pos.y > m_TmpPos[0].y) {
-	//		m_Pos.y += -m_Speed;
-	//		m_Direction = UP;
-	//	}
-	//	if (m_Pos.x <= m_TmpPos[0].x + 10.f
-	//		&&m_Pos.x >= m_TmpPos[0].x - 10.f
-	//		&&m_Pos.y <= m_TmpPos[0].y + 10.f
-	//		&&m_Pos.y >= m_TmpPos[0].y - 10.f) {
-	//		IsTmpFlg[0] = true;
-	//	}
-	//}
-	//else if (!IsTmpFlg[1] && IsTmpFlg[0]) {
-	//	if (m_Pos.x < m_TmpPos[1].x) {
-	//		m_Pos.x += m_Speed;
-	//		m_Direction = RIGHT;
-	//	}
-	//	else if (m_Pos.x > m_TmpPos[1].x) {
-	//		m_Pos.x += - m_Speed;
-	//		m_Direction = LEFT;
-	//	}
-	//	else if (m_Pos.y < m_TmpPos[1].y) {
-	//		m_Pos.y += m_Speed;
-	//		m_Direction = DOWN;
-	//	}
-	//	else if (m_Pos.y > m_TmpPos[1].y) {
-	//		m_Pos.y += - m_Speed;
-	//		m_Direction = UP;
-	//	}
-	//	if (m_Pos.x <= m_TmpPos[1].x + 10.f
-	//		&&m_Pos.x >= m_TmpPos[1].x - 10.f
-	//		&&m_Pos.y <= m_TmpPos[1].y + 10.f
-	//		&&m_Pos.y >= m_TmpPos[1].y - 10.f) {
-	//		IsTmpFlg[1] = true;
-	//	}
-	//}
-	//else if (!IsTmpFlg[2] && IsTmpFlg[0] && IsTmpFlg[1]) {
-	//	if (m_Pos.x < m_TmpPos[2].x) {
-	//		m_Pos.x += m_Speed;
-	//		m_Direction = RIGHT;
-	//	}
-	//	else if (m_Pos.x > m_TmpPos[2].x) {
-	//		m_Pos.x += - m_Speed;
-	//		m_Direction = LEFT;
-	//	}
-	//	else if (m_Pos.y < m_TmpPos[2].y) {
-	//		m_Pos.y += m_Speed;
-	//		m_Direction = DOWN;
-	//	}
-	//	else if (m_Pos.y > m_TmpPos[2].y) {
-	//		m_Pos.y += - m_Speed;
-	//		m_Direction = UP;
-	//	}
-	//	if (m_Pos.x <= m_TmpPos[2].x + 10.f
-	//		&&m_Pos.x >= m_TmpPos[2].x - 10.f
-	//		&&m_Pos.y <= m_TmpPos[2].y + 10.f
-	//		&&m_Pos.y >= m_TmpPos[2].y - 10.f) {
-	//		IsTmpFlg[2] = true;
-	//	}
-	//}
-	//else if (!IsTmpFlg[3] && IsTmpFlg[0] && IsTmpFlg[1] && IsTmpFlg[2]) {
-	//	if (m_Pos.x < m_TmpPos[3].x) {
-	//		m_Pos.x += m_Speed;
-	//		m_Direction = RIGHT;
-	//	}
-	//	else if (m_Pos.x > m_TmpPos[3].x) {
-	//		m_Pos.x += -m_Speed;
-	//		m_Direction = LEFT;
-	//	}
-	//	else if (m_Pos.y < m_TmpPos[3].y) {
-	//		m_Pos.y += m_Speed;
-	//		m_Direction = DOWN;
-	//	}
-	//	else if (m_Pos.y > m_TmpPos[3].y) {
-	//		m_Pos.y += -m_Speed;
-	//		m_Direction = UP;
-	//	}
-	//	if (m_Pos.x <= m_TmpPos[3].x + 10.f
-	//		&&m_Pos.x >= m_TmpPos[3].x - 10.f
-	//		&&m_Pos.y <= m_TmpPos[3].y + 10.f
-	//		&&m_Pos.y >= m_TmpPos[3].y - 10.f) {
-	//		for (int i = 0; i < 4; i++) {
-	//			IsTmpFlg[i] = false;
-	//		}
-	//	}
-	//}
 
-	//TODO
-	for (int i = 0; i < m_pCollision->GetOtherCollision().size(); i++) {
-		if (m_pCollision->GetOtherCollision()[i]->GetCollisionId() == Collision::ZOMBIE) {
-			m_pZombieCollisions.push_back(m_pCollision->GetOtherCollision()[i]);
-			m_IsZombieCollisioned = true;
+	if (!m_IsDeath) {
+		//TODO
+		for (int i = 0; i < m_pBoxCollision->GetOtherCollision().size(); i++) {
+			if (m_pBoxCollision->GetOtherCollision()[i]->GetCollisionId() == Collision::ZOMBIE) {
+				m_pZombieCollisions.push_back(m_pBoxCollision->GetOtherCollision()[i]);
+				m_IsZombieCollisioned = true;
+			}
 		}
-	}
 
 		//TODO
 		if (m_IsZombieCollisioned)
@@ -325,7 +237,7 @@ void Human::Update()
 			for (int i = 0; i < m_pZombieCollisions.size(); i++)
 			{
 				D3DXVECTOR2 tmp;
-				
+
 				/* 研究員とゾンビとの間の距離を取っている */
 				tmp.x = m_Pos.x - m_pZombieCollisions[i]->GetPosition()->x;
 				tmp.y = m_Pos.y - m_pZombieCollisions[i]->GetPosition()->y;
@@ -337,7 +249,7 @@ void Human::Update()
 				/* x,yどちらかが同じ座標ならば斜めの距離を出さなくてもいい？ */
 
 				/* これで斜めの距離を出している */
-				float length = ( x + y);
+				float length = (x + y);
 
 				/* ここでlengthの平方根を出している */
 				float les = sqrt(length);
@@ -351,7 +263,7 @@ void Human::Update()
 				tmpBuffer.push_back(tmpPos[g]);
 			}
 
-			/*	
+			/*
 			*	昇順でソートをしている
 			*	距離が短い順に前に来る
 			*/
@@ -370,24 +282,64 @@ void Human::Update()
 			m_Direction = m_pZombieCollisions[Id]->GetDirection();
 
 			/* 敵の位置を貰う */
-			switch (m_pZombieCollisions[Id]->GetDirection())
+			switch (m_Direction)
 			{
 			case UP:
-				m_Pos.y += -m_Speed;
+				if (!m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.y += -m_Speed;
+				}
+				else if (!m_pTmpCollision[2]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += m_Speed;
+					m_Direction = RIGHT;
+				}
+				else if (!m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += -m_Speed;
+					m_Direction = LEFT;
+				}
 				break;
 			case DOWN:
-				m_Pos.y += m_Speed;
+				if (!m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.y += m_Speed;
+				}
+				else if (!m_pTmpCollision[2]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += m_Speed;
+					m_Direction = RIGHT;
+				}
+				else if (!m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += -m_Speed;
+					m_Direction = LEFT;
+				}
 				break;
 			case RIGHT:
-				m_Pos.x += -m_Speed;
+				if (!m_pTmpCollision[2]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += m_Speed;
+				}
+				else if (!m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.y += -m_Speed;
+					m_Direction = UP;
+				}
+				else if (!m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.y += m_Speed;
+					m_Direction = DOWN;
+				}
 				break;
 			case LEFT:
-				m_Pos.x += -m_Speed;
+				if (!m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += -m_Speed;
+				}
+				else if (!m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.y += -m_Speed;
+					m_Direction = UP;
+				}
+				else if (!m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.y += m_Speed;
+					m_Direction = DOWN;
+				}
 				break;
 			}
 
 		}
-
+	}
 	///////
 	//D3DXVECTOR2 UpDir[4];
 	//UpDir[0] = { 0,-1.0f };
@@ -617,7 +569,7 @@ void Human::Update()
 		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
 	}
 	m_pCollision->SetPosition(&m_Pos);
-	m_LargestRect = { -50,-50,50,50 };
+	m_LargestRect = { -100,-100,100,100 };
 	m_pBoxCollision->SetPosition(&m_Pos);
 	//TODO
 	m_pZombieCollisions.clear();
@@ -665,4 +617,41 @@ void Human::ResetArray() {
 	for (int i = 0; i < 4; i++) {
 		m_CollisionDir[i] = Direction::NON;
 	}
+}
+void Human::ToAttack() 
+{
+	CUSTOMVERTEX ToBeAttackDraw[4];
+	CUSTOMVERTEX  ToBeAttackVertex[4]{
+	{ -m_AttackWidth / 2, -m_AttackHeight / 2, 1.0f, 1.0f, 0xFFFFFFFF, 0.f,  0.f },
+	{ m_AttackWidth / 2, -m_AttackHeight / 2, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 0.f },
+	{ m_AttackWidth / 2,  m_AttackHeight / 2, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
+	{ -m_AttackWidth / 2,  m_AttackHeight / 2, 1.0f, 1.0f, 0xFFFFFFFF, 0.f,  1.0f }
+	};
+	//位置と頂点情報を代入
+	for (int i = 0; i < 4; i++) {
+		ToBeAttackDraw[i] = ToBeAttackVertex[i];
+		ToBeAttackDraw[i].x += m_Pos.x;
+		ToBeAttackDraw[i].y += m_Pos.y;
+	}
+
+	switch (m_Direction)
+	{
+	case Direction::UP:
+		DirectGraphics::GetpInstance()->TrimingVertex(ToBeAttackDraw, 60, 540, 108, 108, 2048, 2048);
+		DirectGraphics::GetpInstance()->Render("Texture/combine.png", ToBeAttackDraw);
+		break;
+	case Direction::DOWN:
+		DirectGraphics::GetpInstance()->TrimingVertex(ToBeAttackDraw, 0, 540, 108, 108, 2048, 2048);
+		DirectGraphics::GetpInstance()->Render("Texture/combine.png", ToBeAttackDraw);
+		break;
+	case Direction::RIGHT:
+		DirectGraphics::GetpInstance()->TrimingVertex(ToBeAttackDraw, 180, 540, 108, 108, 2048, 2048);
+		DirectGraphics::GetpInstance()->Render("Texture/combine.png", ToBeAttackDraw);
+		break;
+	case Direction::LEFT:
+		DirectGraphics::GetpInstance()->TrimingVertex(ToBeAttackDraw, 120, 540, 108, 108, 2048, 2048);
+		DirectGraphics::GetpInstance()->Render("Texture/combine.png", ToBeAttackDraw);
+		break;
+	}
+	m_IsToBeAttack = false;
 }

@@ -23,6 +23,17 @@ Zombie::Zombie(D3DXVECTOR2* pos,float speed, int width, int height)
 		CollisionManager::GetcollisionManager()->AddCollision(m_pTmpCollision[i]);
 		DirectGraphics::GetpInstance()->InitGraphics("Texture/combine.png");
 	}
+	for (int i = 0; i < 2; i++) {
+		m_pUpDownCollision[i] = new Collision();
+		m_pUpDownCollision[i]->SetPosition(&m_CollisionPos[i]);
+		m_pUpDownCollision[i]->SetSize(&D3DXVECTOR2(1, 1));
+		m_pUpDownCollision[i]->SetCollisionId(Collision::ZOMBIEHIT);
+		CollisionManager::GetcollisionManager()->AddCollision(m_pUpDownCollision[i]);
+	}
+	m_pTmpCollision[0]->SetSize(&D3DXVECTOR2(m_Width, 1));
+	m_pTmpCollision[1]->SetSize(&D3DXVECTOR2(m_Width, 1));
+	m_pTmpCollision[2]->SetSize(&D3DXVECTOR2(1, m_Height / 2 + 15));
+	m_pTmpCollision[3]->SetSize(&D3DXVECTOR2(1, m_Height / 2 + 15));
 }
 
 Zombie::~Zombie()
@@ -51,7 +62,7 @@ void Zombie::Draw()
 		switch (m_Direction)
 		{
 		case Direction::UP:
-			DirectGraphics::GetpInstance()->Animation(ZombieDraw, m_Tu, 1, m_Tv, 4);
+			DirectGraphics::GetpInstance()->Animation(ZombieDraw, m_Tu, 2, m_Tv, 4);
 			DirectGraphics::GetpInstance()->Render("Texture/combine.png", ZombieDraw);
 			break;
 		case Direction::DOWN:
@@ -59,11 +70,11 @@ void Zombie::Draw()
 			DirectGraphics::GetpInstance()->Render("Texture/combine.png", ZombieDraw);
 			break;
 		case Direction::RIGHT:
-			DirectGraphics::GetpInstance()->Animation(ZombieDraw, m_Tu, 3, m_Tv, 4);
+			DirectGraphics::GetpInstance()->Animation(ZombieDraw, m_Tu, 6, m_Tv, 4);
 			DirectGraphics::GetpInstance()->Render("Texture/combine.png", ZombieDraw);
 			break;
 		case Direction::LEFT:
-			DirectGraphics::GetpInstance()->Animation(ZombieDraw, m_Tu, 2, m_Tv, 4);
+			DirectGraphics::GetpInstance()->Animation(ZombieDraw, m_Tu, 4, m_Tv, 4);
 			DirectGraphics::GetpInstance()->Render("Texture/combine.png", ZombieDraw);
 			break;
 		}
@@ -124,13 +135,15 @@ void Zombie::Draw()
 void Zombie::Update()
 {
 	m_CollisionPos[0].x = m_Pos.x;
-	m_CollisionPos[0].y = m_Pos.y - m_Speed;
+	m_CollisionPos[0].y = m_Pos.y - m_Height / 2;
 	m_CollisionPos[1].x = m_Pos.x;
-	m_CollisionPos[1].y = m_Pos.y + m_Speed;
-	m_CollisionPos[2].x = m_Pos.x + m_Speed;
+	m_CollisionPos[1].y = m_Pos.y + m_Height / 2;
+	m_CollisionPos[2].x = m_Pos.x + m_Width / 2;
 	m_CollisionPos[2].y = m_Pos.y;
-	m_CollisionPos[3].x = m_Pos.x - m_Speed;
+	m_CollisionPos[3].x = m_Pos.x - m_Width / 2;
 	m_CollisionPos[3].y = m_Pos.y;
+
+	m_BeforePos = m_Pos;
 
 	if (DirectInput::GetInstance().GetMouseData()->RightMouse == Utility::BUTTON_STATE::PUSH){
 		m_Fcnt = 0;
@@ -138,39 +151,80 @@ void Zombie::Update()
 		m_Difference.x = m_NextPos.x - m_Pos.x;
 		m_Difference.y = m_NextPos.y - m_Pos.y;
 	}
-	if (m_Difference.y > 0) {
-		if (m_Pos.y + m_Speed < m_NextPos.y
-			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
-			m_Pos.y += m_Speed;
-			m_Direction = DOWN;
+	if (!m_pCollision->IsSearchOtherCollisionId(m_pCollision->GetOtherCollisionId(), Collision::HUMAN)) {
+		if (m_Difference.y > 0) {
+			if (m_Pos.y + m_Speed < m_NextPos.y
+				&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+				m_Pos.y += m_Speed;
+				m_Direction = DOWN;
+			}
+			else if (m_Pos.x + m_Speed < m_NextPos.x
+				&& !m_pTmpCollision[2]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+				if (!m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += m_Speed;
+					m_Direction = RIGHT;
+				}
+				else if (m_pUpDownCollision[0]->IsSearchOtherCollisionId(m_pUpDownCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += m_Speed;
+					m_Direction = RIGHT;
+				}
+				else {
+					m_Pos.y += 1.0f;
+					m_Direction = DOWN;
+				}
+			}
+			else if (m_Pos.x - m_Speed > m_NextPos.x
+				&& !m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+				if (!m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x -= m_Speed;
+					m_Direction = LEFT;
+				}
+				else if (m_pUpDownCollision[0]->IsSearchOtherCollisionId(m_pUpDownCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x -= m_Speed;
+					m_Direction = LEFT;
+				}
+				else {
+					m_Pos.y += 1.0f;
+					m_Direction = DOWN;
+				}
+			}
 		}
-		else if (m_Pos.x + m_Speed < m_NextPos.x
-			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
-			m_Pos.x += m_Speed;
-			m_Direction = RIGHT;
-		}
-
-		else if (m_Pos.x - m_Speed > m_NextPos.x
-			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
-			m_Pos.x -= m_Speed;
-			m_Direction = LEFT;
-		}
-	}
-	else if (m_Difference.y < 0) {
-		if (m_Pos.y - m_Speed > m_NextPos.y
-			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
-			m_Pos.y -= m_Speed;
-			m_Direction = UP;
-		}
-		else if (m_Pos.x - m_Speed > m_NextPos.x
-			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
-			m_Pos.x -= m_Speed;
-			m_Direction = LEFT;
-		}
-		else if (m_Pos.x + m_Speed < m_NextPos.x
-			&& !m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
-			m_Pos.x += m_Speed;
-			m_Direction = RIGHT;
+		else if (m_Difference.y < 0) {
+			if (m_Pos.y - m_Speed > m_NextPos.y
+				&& !m_pTmpCollision[0]->IsSearchOtherCollisionId(m_pTmpCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+				m_Pos.y -= m_Speed;
+				m_Direction = UP;
+			}
+			else if (m_Pos.x - m_Speed > m_NextPos.x
+				&& !m_pTmpCollision[3]->IsSearchOtherCollisionId(m_pTmpCollision[3]->GetOtherCollisionId(), Collision::OBJECT)) {
+				if (!m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x -= m_Speed;
+					m_Direction = LEFT;
+				}
+				else if (m_pUpDownCollision[0]->IsSearchOtherCollisionId(m_pUpDownCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x -= m_Speed;
+					m_Direction = LEFT;
+				}
+				else {
+					m_Pos.y -= 1.0f;
+					m_Direction = UP;
+				}
+			}
+			else if (m_Pos.x + m_Speed < m_NextPos.x
+				&& !m_pTmpCollision[2]->IsSearchOtherCollisionId(m_pTmpCollision[2]->GetOtherCollisionId(), Collision::OBJECT)) {
+				if (!m_pTmpCollision[1]->IsSearchOtherCollisionId(m_pTmpCollision[1]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += m_Speed;
+					m_Direction = RIGHT;
+				}
+				else if (m_pUpDownCollision[0]->IsSearchOtherCollisionId(m_pUpDownCollision[0]->GetOtherCollisionId(), Collision::OBJECT)) {
+					m_Pos.x += m_Speed;
+					m_Direction = RIGHT;
+				}
+				else {
+					m_Pos.y -= 1.0f;
+					m_Direction = UP;
+				}
+			}
 		}
 	}
 	//‚Ç‚±‚ÉˆÚ“®‚·‚é”»’è‚Æ‚±‚ê‚©‚çŒü‚­Œü‚«
@@ -219,10 +273,10 @@ void Zombie::Update()
 		}
 	}*/
 	for (int i = 0; i < 4; i++) {
-	m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
+		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
 	}
-	m_pCollision->SetPosition(&m_Pos);
 	m_pCollision->SetDirection(m_Direction);
+	m_pCollision->SetPosition(&m_Pos);
 }
 
 bool Zombie::DirectionCheack(Direction direction)

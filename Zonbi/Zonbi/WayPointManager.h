@@ -1,6 +1,8 @@
 #ifndef WAYPOINTMANAGER_H
 #define WAYPOINTMANAGER_H
 
+//シングルトンクラス
+
 //-----------------------------------------------------------------------------------------
 //include
 //-----------------------------------------------------------------------------------------
@@ -8,7 +10,9 @@
 #include<vector>
 
 #include"WayPointBase.h"
-
+//-----------------------------------------------------------------------------------------
+//クラス
+//-----------------------------------------------------------------------------------------
 class Room;
 class Corridor;
 
@@ -24,9 +28,14 @@ public:
 		return m_pInstance;
 	}
 	~WayPointManager();
+	//座標がどのWayPointに入っているか
+	//第一引数ルートサーチをしたい座標
 	int CurrentWayPoint(D3DXVECTOR2* pos);
+	//座標が部屋のどこかに入っているか
+	//入っていれば部屋ID　入っていなければ-1
+	//第一引数部屋に入っているかを見たい座標
 	int CurrentRoom(D3DXVECTOR2* pos);
-	void RouteSearch(int id, int destinationId);
+	/*void RouteSearch(int id, int destinationId);*/
 	void SearchRoot(std::vector<std::vector<WayPointBase*>> &root, int rootId, WayPointBase* goalId, bool *isEnd);
 	//WayPointBase* Recursion(std::vector<WayPointBase*>& firstPoint, std::vector<WayPointBase*>& tmp);
 	//void RouteFill(WayPointBase* tmp);

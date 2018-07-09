@@ -8,7 +8,7 @@ char Utility::TransformChar(int val)
 	case 0:
 		ret = '0';
 		break;
-
+		
 	case 1:
 		ret = '1';
 		break;

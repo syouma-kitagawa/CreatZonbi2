@@ -19,7 +19,7 @@ public:
 		TWO,
 		THREE
 	};
-	Human(D3DXVECTOR2* pos,int width,int height, D3DXVECTOR2 pos2[]);
+	Human(D3DXVECTOR2* pos,int width,int height, D3DXVECTOR2 pos2[],int attackWidth,int attackHeight);
 	virtual ~Human();
 	virtual void Update();
 	virtual void Draw();
@@ -32,10 +32,11 @@ public:
 	bool IsDeath() { return m_IsDeath; }
 	bool IsRevival() {return m_IsRevival;}
 private:
+	void ToAttack();
 	void ChangePostion(RECT* rect, const D3DXVECTOR2& direction, float range, const D3DXVECTOR2& pos);
 	bool DirectionCheck(Direction direction);
 	void ResetArray();
-	const float m_Tu = 0.0278f;
+	const float m_Tu = 0.02930f;
 	const float m_Tv = 0.0573f;
 	const float m_BreakDownTuTv = 0.0536f;
 
@@ -54,6 +55,8 @@ private:
 	Direction m_CollisionDir[4];
 	int m_Width;
 	int m_Height;
+	int m_AttackWidth;
+	int m_AttackHeight;
 	int m_CollisionDircnt = 0;
 	int m_Fcnt = 0;
 	int m_Revivalcnt = 0;
@@ -68,6 +71,7 @@ private:
 	// 
 	bool m_IsDeath = false;
 	bool m_IsRevival = false;
+	bool m_IsToBeAttack = false;
 
 	bool m_IsZombieCollisioned = false;
 

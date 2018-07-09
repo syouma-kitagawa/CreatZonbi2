@@ -13,14 +13,17 @@ HumanManager::HumanManager(ZombieManager* manager) : m_pZombieManager(manager)
 	m_pHuman.resize(humanNum);
 	for (int i = 0; i < humanNum; i++) {
 		HumanParameter param = HumanParameter::GetInstance();
+		m_Humancnt = param.GetHumanNum();
 		D3DXVECTOR2 vec = param.GetHumanParam(i)->pos;
 		int width = param.GetHumanParam(i)->width;
 		int height = param.GetHumanParam(i)->height;
+		int ToBeAtkWidth = param.GetHumanParam(i)->atkWidth;
+		int ToBeAtkHeight = param.GetHumanParam(i)->atkHeight;
 		D3DXVECTOR2 pos[4];
 		for (int j = 0; j < 4; j++) {
 			pos[j] = param.GetHumanParam(i)->tmpPos[j];
 		}
-		m_pHuman[i] = new Human(&vec, width, height,pos);
+		m_pHuman[i] = new Human(&vec, width, height,pos, ToBeAtkWidth, ToBeAtkHeight);
 	}
 }
 

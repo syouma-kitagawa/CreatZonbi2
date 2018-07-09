@@ -34,7 +34,7 @@ private:
 	void ResetArray();
 
 	const float kMargin = 10.0f;
-	const float m_Tu = 0.02625f;
+	const float m_Tu = 0.02627f;
 	const float m_Tv = 0.0527f;
 	const float m_AtkTv = 0.0556f;
 

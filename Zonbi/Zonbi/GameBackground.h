@@ -12,7 +12,7 @@ public:
 	GameBackground();
 	~GameBackground();
 	void Draw();
-private:
+	void WallDraw();
 };
 
 #endif 

@@ -25,7 +25,7 @@ PlayerZombie::PlayerZombie(D3DXVECTOR2* pos,float speed,int width,int height)
 		m_pTmpCollision[i]->SetCollisionId(Collision::ZOMBIEHIT);
 		CollisionManager::GetcollisionManager()->AddCollision(m_pTmpCollision[i]);
 	}
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 2; i++) {
 		m_pUpDownCollision[i] = new Collision();
 		m_pUpDownCollision[i]->SetPosition(&m_CollisionPos[i]);
 		m_pUpDownCollision[i]->SetSize(&D3DXVECTOR2(1, 1));
@@ -442,6 +442,7 @@ void PlayerZombie::Update()
 		m_pTmpCollision[i]->SetPosition(&m_CollisionPos[i]);
 	}
 	m_pCollision->SetDirection(m_Direction);
+
 	m_pCollision->SetPosition(&m_Pos);
 }
 

@@ -18,8 +18,8 @@ void TimeLimit::Draw()
 {
 	CUSTOMVERTEX  LimitBackVertex[4]{
 	{                                               18,                                            14, 1.0f, 1.0f, 0xFFFFFFFF, 0.f,  0.f },
-	{ Font::GetpInstance().GetSize()->m_Width * 3 + 22,                                            14, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 0.f },
-	{ Font::GetpInstance().GetSize()->m_Width * 3 + 22, Font::GetpInstance().GetSize()->m_Height + 26, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
+	{ Font::GetpInstance().GetSize()->m_Width * 3 + 50,                                            14, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 0.f },
+	{ Font::GetpInstance().GetSize()->m_Width * 3 + 50, Font::GetpInstance().GetSize()->m_Height + 26, 1.0f, 1.0f, 0xFFFFFFFF, 1.0f, 1.0f },
 	{                                               18, Font::GetpInstance().GetSize()->m_Height + 26, 1.0f, 1.0f, 0xFFFFFFFF, 0.f,  1.0f }
 	};
 	CUSTOMVERTEX vertex[] = {
@@ -31,12 +31,12 @@ void TimeLimit::Draw()
 	DirectGraphics::GetpInstance()->Render("Texture/frame03.png", LimitBackVertex);
 	if (m_Limits >= 0) {
 		////ïSÇÃà ï\é¶
-		//{
-		//	int hundredsPlace = m_Limits / 100;
-		//	Font::GetpInstance().GetUV(Utility::TransformChar(hundredsPlace), vertex);
-		//	DirectGraphics::GetpInstance()->Render("Texture/UI.png", vertex);
-		//	NextCharPos(vertex);
-		//}
+		{
+			int hundredsPlace = m_Limits / 100;
+			Font::GetpInstance().GetUV(Utility::TransformChar(hundredsPlace), vertex);
+			DirectGraphics::GetpInstance()->Render("Texture/UI.png", vertex);
+			NextCharPos(vertex);
+		}
 		//è\ÇÃà ï\é¶
 		{
 			int tensPlace = (m_Limits / 10) % 10;
